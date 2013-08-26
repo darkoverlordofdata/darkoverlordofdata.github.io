@@ -1,9 +1,10 @@
 name: "Dark Overlord of Data"
-description: "No Stone Unturned"
+description: "If It Isn't Dark, It Isn't Data"
 
 url: "http://localhost:4000"
 
-paginate: 10
+paginate: 5
+paginate_path: "list/page:num"
 
 markdown: rdiscount
 permalink: pretty

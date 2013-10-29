@@ -1,0 +1,56 @@
+---
+title: Installing XAMPP and Drupal on Xubuntu 11.10
+layout: post
+tags: Drupal, XAMPP, Xubuntu
+---
+<br />
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">I'm evaluating CiviCRM, a contact relationship manager which is installed as a module in either Joomla or Drupal. In my last post, I installed CiviCRM with Joomla (<a href="/2012/01/03/installing-xampp-and-joomla-on-xubuntu/">Installing XAMPP and Joomla on Xubuntu 11.10</a>). Today, I'll be installing CiviCRM with Drupal.</span><br />
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span><br />
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">I'm starting with a custom install of XAMPP.&nbsp;I installed the&nbsp;</span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">the latest version from&nbsp;</span><a href="http://www.apachefriends.org/en/xampp-linux.html" style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: small;">http://www.apachefriends.org/en/xampp-linux.html</a>.&nbsp;<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Download the tarball, and then&nbsp;</span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">open a console shell:</span><br />
+<blockquote class="tr_bq">
+    <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo tar xvfz ~/Downloads/xampp-linux-1.7.7.tar.gz -C /opt</span></blockquote>
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">&nbsp;That's it. I also made the following changes to the /opt/lampp/etc/php.ini file:</span><br />
+<blockquote class="tr_bq">
+    <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">display_errors = Off<br />display_startup_errors = Off<br />output_buffering = Off</span></blockquote>
+<div>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">These 'production' settings will prevent warning messages from displaying all over your web pages. Now start XAMPP, and test your installation by pointing your browser to localhost.&nbsp;</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo /opt/lampp/lampp start</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Visit www.drupal.org, and download the latest version of Drupal. I created two sites - a reference site named drupal_demo, and a working site named drupall_crm</span></div>
+<div>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo mkdir /opt/lampp/htdocs/drupal_demo</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace;"><span style="font-size: xx-small;">sudo unzip ~/Downloads/drupal-7.10.zip -d opt/lampp/htdocs/drupal_demo</span></span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chmod -R 755 /opt/lampp/htdocs/drupal_demo</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chown -R nobody:nogroup /opt/lampp/htdocs/drupal_demo</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Browse to localhost/drupal_demo, and follow the installation instructions, using database name 'drupal_demo'.</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo mkdir /opt/lampp/htdocs/drupal_crm</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace;"><span style="font-size: xx-small;">sudo unzip ~/Downloads/drupal-7.10.zip -d /opt/lampp/htdocs/drupal_crm</span></span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chmod -R 755 /opt/lampp/htdocs/drupal_crm</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chown -R nobody:nogroup /opt/lampp/htdocs/drupal_crm</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Again, browse to localhost/drupal_crm, and follow the installation instructions. For database name, I used 'drupal_crm'.</span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">To install CiviCRM, I first copy the install package to the web root:</span><br />
+    <br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo cp ~/Downloads/civicrm-4.0.8-drupal.tar.gz /opt/lampp/htdocs</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Then I enter my drupal_crm site as administrator, and select Modules --&gt; Install new module, and I install if from my own local web server, entering:</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">http://localhost/</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">civicrm-4.0.8-drupal.tar.gz</span></blockquote>
+    <br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">This just seems to unpack the files, and does not automatically start the CiviCRM install process, as Joomla did. To start the install, point the browser to&nbsp;<a href="http://localhost/drupal_crm/sites/all/modules/civicrm/install/index.php">http://localhost/drupal_crm/sites/all/modules/civicrm/install/index.php</a></span><br />
+    <br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Now I have CiviCRM installed in both Joomla and Drupal. As I move forward evaluating CiviCRM, I'll also be comparing Joomla vs. Drupal as my choice of infrastructure.</span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span><br />
+    <br />
+    <blockquote class="tr_bq">
+    </blockquote>
+</div>

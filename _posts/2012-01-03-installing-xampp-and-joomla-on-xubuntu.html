@@ -1,0 +1,51 @@
+---
+title: Installing XAMPP and Joomla on Xubuntu 11.10
+layout: post
+tags: Joomla, XAMPP, Xubuntu
+---
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">I'm evaluating CiviCRM, a contact relationship manager which is installed as a module in either Joomla or Drupal.&nbsp;</span><br />
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span><br />
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">I could install Apache web server in Ubuntu by using apt-get, but then I will have little control over the versions of software installed, so&nbsp;I'm starting with a custom install of XAMPP. </span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Visit </span><a href="http://www.apachefriends.org/en/xampp-linux.html" style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: small;">http://www.apachefriends.org/en/xampp-linux.html</a><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">, and download the the latest version of software. Then&nbsp;</span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">open a console shell and enter:</span><br />
+<blockquote class="tr_bq">
+    <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo tar xvfz ~/Downloads/xampp-linux-1.7.7.tar.gz -C /opt</span></blockquote>
+<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">&nbsp;That's it. I also made the following changes to the /opt/lampp/etc/php.ini file:</span><br />
+<blockquote class="tr_bq">
+    <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">display_errors = Off<br />display_startup_errors = Off<br />output_buffering = Off</span></blockquote>
+<div>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">These 'production' settings are recommended by the Joomla install process and prevent warning messages from displaying all over your web pages. Now start XAMPP:&nbsp;</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo /opt/lampp/lampp start</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Test your installation by pointing your browser to localhost.&nbsp;</span></div>
+<div>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"></span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Now to install Joomla, visit joomla.org, and download the latest version. Because I don't know Joomla I'm going to create two sites - a reference site named joomla_demo, and a working site named joomla_crm</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo mkdir /opt/lampp/htdocs/joomla_demo</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace;"><span style="font-size: xx-small;">sudo unzip ~/Downloads/Joomla_1.7.3-Stable-Full_Package.zip -d /opt/lampp/htdocs/joomla_demo</span></span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chmod -R 755 /opt/lampp/htdocs/joomla_demo</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chown -R nobody:nogroup /opt/lampp/htdocs/joomla_demo</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Browse to localhost/joomla_demo, and follow the installation instructions. For database name, I entered 'joomla', and for prefix, I entered 'demo_'.&nbsp;</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo mkdir /opt/lampp/htdocs/joomla_crm</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace;"><span style="font-size: xx-small;">sudo unzip ~/Downloads/Joomla_1.7.3-Stable-Full_Package.zip -d /opt/lampp/htdocs/joomla_crm</span></span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chmod -R 755 /opt/lampp/htdocs/joomla_crm</span></blockquote>
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo chown -R nobody:nogroup /opt/lampp/htdocs/joomla_crm</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Now, browse to localhost/joomla_crm, and follow the installation instructions. For database name, I entered 'joomla', and for prefix, I entered 'crm_'. Note that I could also have used 2 separate databases.</span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span><br />
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">To install CicivCRM, I enter my joomla_crm site as administrator, and select Extension Manager. The instructions are to enter the sourceforge url into the Install URL field. But sourceforge doesn't cooperate. Instead, I install if from my own local web server:</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo cp ~/Downloads/civicrm-4.0.8-joomla.zip /opt/lampp/htdocs</span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Now, for Install URL, enter&nbsp;</span><br />
+    <blockquote class="tr_bq">
+        <span style="font-size: xx-small;"><span style="font-family: 'Courier New', Courier, monospace;">http://localhost/</span><span style="font-family: 'Courier New', Courier, monospace;">civicrm-4.0.8-joomla.zip</span></span></blockquote>
+    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">And the install is successful. Next, I'll create my evaluation sites for Drupal.&nbsp;</span><br />
+    <br />
+    <blockquote class="tr_bq">
+    </blockquote>
+</div>

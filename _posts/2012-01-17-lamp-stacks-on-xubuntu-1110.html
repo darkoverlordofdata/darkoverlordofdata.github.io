@@ -3,31 +3,29 @@ title: LAMP stacks on Xubuntu 11.10
 layout: post
 tags: LAMP, XAMPP, Xubuntu
 ---
-<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">Recently I've been evaluating several php applications written for the LAMP stack. To do this, I decided to install a LAMP stack on my pc, which is running on xubuntu 11.10. There is more than 1 way to achieve this end. &nbsp;Here are my observations on 3 methods.</span><br />
+<p>Recently I've been evaluating several php applications written for the LAMP stack. To do this, I decided to install a LAMP stack on my pc, which is running on xubuntu 11.10. There is more than 1 way to achieve this end.  Here are my observations on 3 methods.</p><br />
 <ul>
-    <li><b style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><span style="font-size: x-small;">XAMPP</span></b><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">, from&nbsp;</span><a href="http://www.apachefriends.org/" style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: small;">http://www.apachefriends.org/</a><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">, includes everything in one package.</span><b style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: small;">&nbsp;</b></li>
-    <li><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><b><span style="font-size: x-small;">lamp_server</span></b><span style="font-size: x-small;">, a&nbsp;package</span></span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">&nbsp;from the Ubuntu repository.</span></li>
-    <li><b style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: small;">Individually</b><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">&nbsp;install all the pieces from the Ubuntu repository.</span></li>
+    <li>XAMPP, from <a href="http://www.apachefriends.org/">http://www.apachefriends.org/</a>, includes everything in one package.</li>
+    <li>lamp_server, a package from the Ubuntu repository.</li>
+    <li>Individually install all the pieces from the Ubuntu repository.</li>
 </ul>
-<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><b><br /></b></span>
-<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><b>XAMPP</b><span style="font-size: x-small;"> It's hard to beat xampp for ease of install. Just extract the archive into /opt. It comes with a handy </span><i style="font-size: small;">lampp</i><span style="font-size: x-small;"> command line tool to start and stop all the services. However, I started spending a lot of time resolving side issues. &nbsp;It wasn't compatible with MySQL Administrator. The package includes phpMyAdmin. Overall, it's ok, but I run into issues and end up at the mysql command line. And I found that another package I installed was starting up another apache web server instance, causing conflicts. I also found that I had to tweak the php.ini file to suppress error messages, or the packages I was evaluating would not render correctly.</span></span><br />
+<p><br /></p>
+<p>XAMPP<p> It's hard to beat xampp for ease of install. Just extract the archive into /opt. It comes with a handy </p><i>lampp</i><p> command line tool to start and stop all the services. However, I started spending a lot of time resolving side issues.  It wasn't compatible with MySQL Administrator. The package includes phpMyAdmin. Overall, it's ok, but I run into issues and end up at the mysql command line. And I found that another package I installed was starting up another apache web server instance, causing conflicts. I also found that I had to tweak the php.ini file to suppress error messages, or the packages I was evaluating would not render correctly.</p></p><br />
 <div>
-    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><span style="font-size: x-small;"><br /></span></span></div>
+    <p><p><br /></p></p></div>
 <div>
-    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><b>lamp_server</b><span style="font-size: x-small;">&nbsp;To install this, you need a terminal:</span></span></div>
-<blockquote class="tr_bq">
-    <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo apt-get install lamp_server^</span></blockquote>
-<span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">This gave me grief. The install failed when setting the MySQL root user password.&nbsp;</span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">&nbsp;When I tried to uninstall the package, it failed with an unresolved dependency on mono_document. I've realized that I'm not actually going to use mono for now, so I uninstalled that package, and again entered:</span><br />
-<blockquote class="tr_bq">
-    <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo apt-get remove lamp_server^</span></blockquote>
+    <p>lamp_server<p> To install this, you need a terminal:</p></p></div>
+<code><pre>
+sudo apt-get install lamp_server^</pre></code>
+<p>This gave me grief. The install failed when setting the MySQL root user password.  When I tried to uninstall the package, it failed with an unresolved dependency on mono_document. I've realized that I'm not actually going to use mono for now, so I uninstalled that package, and again entered:</p><br />
+<code><pre>
+sudo apt-get remove lamp_server^</pre></code>
 <div>
-    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">This time, it didn't fail. But I noticed that it wasn't ending, either. I looked more closely, and realized that it was removing everything. I aborted, but it was too late. I couldn't even re-boot, the os was damaged.</span><br />
-    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;"><br /></span>
-    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;"><b>After</b><span style="font-size: x-small;">&nbsp;re-installing a clean copy of Xubuntu 11.10, I decided to&nbsp;</span></span><span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">install the standard Ubuntu packages individually:</span><br />
-    <blockquote class="tr_bq">
-        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo apt-get&nbsp;</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">install</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;mysql-server mysql-client</span></blockquote>
-    <blockquote class="tr_bq">
-        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo apt-get&nbsp;</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">install</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">apache2</span></blockquote>
-    <blockquote class="tr_bq">
-        <span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">sudo apt-get&nbsp;</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">install</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">&nbsp;</span><span style="font-family: 'Courier New', Courier, monospace; font-size: xx-small;">php5 libapache2-mod-php5 php5-mysql</span></blockquote>
-    <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: x-small;">At this point, I am now up and running with a supported lamp stack.MySQL Administrator works correctly and I don't have to depend on phpMyAdmin. The apache server is started and stopped automatically. I also did not have to tweak the php error message display level. To me, this has a production feel to it, and this is the correct installation for me to evaluate existing software.</span></div>
+    <p>This time, it didn't fail. But I noticed that it wasn't ending, either. I looked more closely, and realized that it was removing everything. I aborted, but it was too late. I couldn't even re-boot, the os was damaged.</p><br />
+    <p><br /></p>
+    <p>After<p> re-installing a clean copy of Xubuntu 11.10, I decided to </p>install the standard Ubuntu packages individually:</p><br />
+    <code><pre>
+sudo apt-get install mysql-server mysql-client
+sudo apt-get install apache2
+sudo apt-get install php5 libapache2-mod-php5 php5-mysql</pre></code>
+    <p>At this point, I am now up and running with a supported lamp stack.MySQL Administrator works correctly and I don't have to depend on phpMyAdmin. The apache server is started and stopped automatically. I also did not have to tweak the php error message display level. To me, this has a production feel to it, and this is the correct installation for me to evaluate existing software.</p></div>

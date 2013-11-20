@@ -1,7 +1,8 @@
-name: "Darker Shade of Black"
-description: "musings of a dark overlord"
+name: "dark overlord of data"
+description: "if it's not dark, it's not data"
 
-url: "http://localhost:4000"
+port: 53610
+url: http://localhost:53610
 
 paginate: 5
 paginate_path: "list/page:num"

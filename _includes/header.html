@@ -60,10 +60,14 @@
             <small>{{ site.name }}</small>
         </blockquote>
     </div>
-    <div class="span2">
-        <a href="/katra/">Katra</a>
-        <a href="/">Home</a>
-    </div>
+    <ul class="nav nav-pills">
+        <li><a href="/katra/">Katra</a></li>
+        {% if page.active == "home" %}
+        <li class="active"><a href="/">Home</a></li>
+        {% else %}
+        <li><a href="/">Home</a></li>
+        {% endif %}
+    </ul>
 </div>
 
 <div class="container-narrow">

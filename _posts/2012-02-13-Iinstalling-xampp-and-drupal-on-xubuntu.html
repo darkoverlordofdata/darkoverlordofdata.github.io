@@ -1,0 +1,43 @@
+---
+title: Installing XAMPP and Drupal on Xubuntu 11.10
+layout: post
+tags: Drupal XAMPP Xubuntu
+---
+
+<p>I'm evaluating CiviCRM, a contact relationship manager which is installed as a module in either Joomla or Drupal. In my last post, I installed CiviCRM with Joomla (<a href="/2012/01/03/installing-xampp-and-joomla-on-xubuntu/">Installing XAMPP and Joomla on Xubuntu 11.10</a>). Today, I'll be installing CiviCRM with Drupal.</p>
+
+<p>I'm starting with a custom install of XAMPP. I installed the the latest version from <a href="http://www.apachefriends.org/en/xampp-linux.html">http://www.apachefriends.org/en/xampp-linux.html</a>. Download the tarball, and then open a console shell:</p>
+<code ><pre>
+sudo tar xvfz ~/Downloads/xampp-linux-1.7.7.tar.gz -C /opt</pre></code>
+<p>That's it. I also made the following changes to the /opt/lampp/etc/php.ini file:</p>
+<code ><pre>
+display_errors = Offdisplay_startup_errors = Offoutput_buffering = Off</pre></code>
+<div>
+    <p>These 'production' settings will prevent warning messages from displaying all over your web pages. Now start XAMPP, and test your installation by pointing your browser to localhost.&nbsp;</p>
+    <code ><pre>
+sudo /opt/lampp/lampp start</pre></code>
+    <p>Visit www.drupal.org, and download the latest version of Drupal. I created two sites - a reference site named drupal_demo, and a working site named drupall_crm</p></div>
+<div>
+    <code ><pre>
+sudo mkdir /opt/lampp/htdocs/drupal_demo
+sudo unzip ~/Downloads/drupal-7.10.zip -d opt/lampp/htdocs/drupal_demo
+sudo chmod -R 755 /opt/lampp/htdocs/drupal_demo
+sudo chown -R nobody:nogroup /opt/lampp/htdocs/drupal_demo&nbsp;</pre></code>
+    <p>Browse to localhost/drupal_demo, and follow the installation instructions, using database name 'drupal_demo'.</p>
+    <code ><pre>
+sudo mkdir /opt/lampp/htdocs/drupal_crm
+sudo unzip ~/Downloads/drupal-7.10.zip -d /opt/lampp/htdocs/drupal_crm
+sudo chmod -R 755 /opt/lampp/htdocs/drupal_crm
+sudo chown -R nobody:nogroup /opt/lampp/htdocs/drupal_crm</pre></code>
+    <p>Again, browse to localhost/drupal_crm, and follow the installation instructions. For database name, I used 'drupal_crm'.</p>
+    <p></p>
+    <p>To install CiviCRM, I first copy the install package to the web root:</p>
+
+    <code ><pre>
+sudo cp ~/Downloads/civicrm-4.0.8-drupal.tar.gz /opt/lampp/htdocs</pre></code>
+    <p>Then I enter my drupal_crm site as administrator, and select Modules --&gt; Install new module, and I install if from my own local web server, entering: <a href="http://localhost/civicrm-4.0.8-drupal.tar.gz">http://localhost/civicrm-4.0.8-drupal.tar.gz</a></p>
+
+    <p>This just seems to unpack the files, and does not automatically start the CiviCRM install process, as Joomla did. To start the install, point the browser to&nbsp;<a href="http://localhost/drupal_crm/sites/all/modules/civicrm/install/index.php">http://localhost/drupal_crm/sites/all/modules/civicrm/install/index.php</a></p>
+
+    <p>Now I have CiviCRM installed in both Joomla and Drupal. As I move forward evaluating CiviCRM, I'll also be comparing Joomla vs. Drupal as my choice of infrastructure.</p>
+</div>

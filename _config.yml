@@ -1,0 +1,30 @@
+name: "dark overlord of data"
+description: "if it's not dark, it's not data"
+
+disqus: d16a
+layouts:     ./_layouts
+tag_page_layout: tag_page
+tag_page_dir: tag
+
+port: 53610
+url: http://localhost:53610
+
+paginate: 5
+paginate_path: "list/page:num"
+
+markdown: rdiscount
+permalink: pretty
+pygments: true
+exclude: ['Gemfile', 'Gemfile.lock', 'README.md']
+
+asset_bundler:
+  compress:
+    js: false
+    css: false
+  base_path: /assets/
+  server_url:
+  remove_bundled: false
+  dev: false
+  markup_templates:
+    js: "<script type='text/javascript' src='{{url}}'></script>\n"
+    css: "<link rel='stylesheet' type='text/css' href='{{url}}' />\n"

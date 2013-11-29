@@ -2,7 +2,7 @@ name: "dark overlord of data"
 description: "if it's not dark, it's not data"
 
 disqus: d16a
-layouts:     ./_layouts
+source: ./www
 tag_page_layout: tag_page
 tag_page_dir: tag
 
@@ -15,7 +15,6 @@ paginate_path: "list/page:num"
 markdown: rdiscount
 permalink: pretty
 pygments: true
-exclude: ['Gemfile', 'Gemfile.lock', 'README.md']
 
 asset_bundler:
   compress:

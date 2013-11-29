@@ -45,21 +45,11 @@
 
 <body>
 <div class="row-fluid">
-    <div class="span2">
-    </div>
-    <div class="span6">
-        <blockquote class="pull-right"><h4>{{ site.description }}</h4>
-            <small>{{ site.name }}</small>
+    <div class="span10">
+        <blockquote class="pull-right"><h4><a class="no-link" href="/">{{ site.description }}</a></h4>
+            <small><a class="no-link" href="/">{{ site.name }}</a></small>
         </blockquote>
     </div>
-    <ul class="nav nav-pills">
-        {% if page.active == "home" %}
-        <li class="active"><a href="/">Home</a></li>
-        {% else %}
-        <li><a href="/">Home</a></li>
-        {% endif %}
-        <li><a href="/katra/">Katra</a></li>
-    </ul>
 </div>
 
 <div class="container-narrow">

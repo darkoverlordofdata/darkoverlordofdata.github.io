@@ -7,7 +7,7 @@ tag_page_layout: tag_page
 tag_page_dir: tag
 
 port: 53610
-url: http://localhost:53610
+url: http://darkoverlordofdata.com
 
 paginate: 5
 paginate_path: "list/page:num"

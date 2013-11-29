@@ -8,7 +8,7 @@ body {
     margin: 0 auto;
     max-width: 800px;
 }
-a.no-link:hover,a.no-link:focus{color:#333;text-decoration:none;}
+a.no-link:hover,a.no-link:focus,a.no-link{color:#333;text-decoration:none;}
 
 .set-1 {font-size: 8pt;}
 .set-2 {font-size: 10pt;}

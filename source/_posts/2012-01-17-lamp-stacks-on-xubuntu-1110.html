@@ -1,0 +1,31 @@
+---
+title: LAMP stacks on Xubuntu 11.10
+layout: post
+tags: LAMP XAMPP Xubuntu
+---
+<p>Recently I've been evaluating several php applications written for the LAMP stack. To do this, I decided to install a LAMP stack on my pc, which is running on xubuntu 11.10. There is more than 1 way to achieve this end.  Here are my observations on 3 methods.</p><br />
+<ul>
+    <li>XAMPP, from <a href="http://www.apachefriends.org/">http://www.apachefriends.org/</a>, includes everything in one package.</li>
+    <li>lamp_server, a package from the Ubuntu repository.</li>
+    <li>Individually install all the pieces from the Ubuntu repository.</li>
+</ul>
+<p><br /></p>
+<p>XAMPP<p> It's hard to beat xampp for ease of install. Just extract the archive into /opt. It comes with a handy </p><i>lampp</i><p> command line tool to start and stop all the services. However, I started spending a lot of time resolving side issues.  It wasn't compatible with MySQL Administrator. The package includes phpMyAdmin. Overall, it's ok, but I run into issues and end up at the mysql command line. And I found that another package I installed was starting up another apache web server instance, causing conflicts. I also found that I had to tweak the php.ini file to suppress error messages, or the packages I was evaluating would not render correctly.</p></p><br />
+<div>
+    <p><p><br /></p></p></div>
+<div>
+    <p>lamp_server<p> To install this, you need a terminal:</p></p></div>
+<code><pre>
+sudo apt-get install lamp_server^</pre></code>
+<p>This gave me grief. The install failed when setting the MySQL root user password.  When I tried to uninstall the package, it failed with an unresolved dependency on mono_document. I've realized that I'm not actually going to use mono for now, so I uninstalled that package, and again entered:</p><br />
+<code><pre>
+sudo apt-get remove lamp_server^</pre></code>
+<div>
+    <p>This time, it didn't fail. But I noticed that it wasn't ending, either. I looked more closely, and realized that it was removing everything. I aborted, but it was too late. I couldn't even re-boot, the os was damaged.</p><br />
+    <p><br /></p>
+    <p>After<p> re-installing a clean copy of Xubuntu 11.10, I decided to </p>install the standard Ubuntu packages individually:</p><br />
+    <code><pre>
+sudo apt-get install mysql-server mysql-client
+sudo apt-get install apache2
+sudo apt-get install php5 libapache2-mod-php5 php5-mysql</pre></code>
+    <p>At this point, I am now up and running with a supported lamp stack.MySQL Administrator works correctly and I don't have to depend on phpMyAdmin. The apache server is started and stopped automatically. I also did not have to tweak the php error message display level. To me, this has a production feel to it, and this is the correct installation for me to evaluate existing software.</p></div>

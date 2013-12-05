@@ -55,59 +55,63 @@
 
 <div class="container-narrow">
 
-<div class="row-fluid">
-    <div class="span12">
-        <p>
-<div class="row-fluid">
-    <div class="span2"><img src="//cdn.darkoverlordofdata.com/images/logo.png" alt=""/></div>
-</div></p>
-<h2>Archive</h2>
 
 <div class="row-fluid">
-    <div class="span8">
-        
-        <div class="row-fluid">
-            <div class="span4">05 September 2013</div>
-            <div class="span6"><a href="/2013/09/05/how-many-spaceneedles/">How Many Space Needles Is That?</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">29 August 2013</div>
-            <div class="span6"><a href="/2013/08/29/new-look/">Our New Look</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">26 August 2013</div>
-            <div class="span6"><a href="/2013/08/26/the-new-39/">42 Is The New 39</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">18 May 2013</div>
-            <div class="span6"><a href="/2013/05/18/exspresso/">Exspresso</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">29 November 2012</div>
-            <div class="span6"><a href="/2012/11/29/im-back/">I'm Back</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">13 February 2012</div>
-            <div class="span6"><a href="/2012/02/13/Iinstalling-xampp-and-drupal-on-xubuntu/">Installing XAMPP and Drupal on Xubuntu 11.10</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">17 January 2012</div>
-            <div class="span6"><a href="/2012/01/17/lamp-stacks-on-xubuntu-1110/">LAMP stacks on Xubuntu 11.10</a></div>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span4">03 January 2012</div>
-            <div class="span6"><a href="/2012/01/03/installing-xampp-and-joomla-on-xubuntu/">Installing XAMPP and Joomla on Xubuntu 11.10</a></div>
-        </div>
-        
+    <div class="span12">
+        <h1>LAMP stacks on Xubuntu 11.10</h1>
+        <p class="muted">17 January 2012</p>
+
+        <p>Recently I've been evaluating several php applications written for the LAMP stack. To do this, I decided to install a LAMP stack on my pc, which is running on xubuntu 11.10. There is more than 1 way to achieve this end.  Here are my observations on 3 methods.</p><br />
+<ul>
+    <li>XAMPP, from <a href="http://www.apachefriends.org/">http://www.apachefriends.org/</a>, includes everything in one package.</li>
+    <li>lamp_server, a package from the Ubuntu repository.</li>
+    <li>Individually install all the pieces from the Ubuntu repository.</li>
+</ul>
+<p><br /></p>
+<p>XAMPP<p> It's hard to beat xampp for ease of install. Just extract the archive into /opt. It comes with a handy </p><i>lampp</i><p> command line tool to start and stop all the services. However, I started spending a lot of time resolving side issues.  It wasn't compatible with MySQL Administrator. The package includes phpMyAdmin. Overall, it's ok, but I run into issues and end up at the mysql command line. And I found that another package I installed was starting up another apache web server instance, causing conflicts. I also found that I had to tweak the php.ini file to suppress error messages, or the packages I was evaluating would not render correctly.</p></p><br />
+<div>
+    <p><p><br /></p></p></div>
+<div>
+    <p>lamp_server<p> To install this, you need a terminal:</p></p></div>
+<code><pre>
+sudo apt-get install lamp_server^</pre></code>
+<p>This gave me grief. The install failed when setting the MySQL root user password.  When I tried to uninstall the package, it failed with an unresolved dependency on mono_document. I've realized that I'm not actually going to use mono for now, so I uninstalled that package, and again entered:</p><br />
+<code><pre>
+sudo apt-get remove lamp_server^</pre></code>
+<div>
+    <p>This time, it didn't fail. But I noticed that it wasn't ending, either. I looked more closely, and realized that it was removing everything. I aborted, but it was too late. I couldn't even re-boot, the os was damaged.</p><br />
+    <p><br /></p>
+    <p>After<p> re-installing a clean copy of Xubuntu 11.10, I decided to </p>install the standard Ubuntu packages individually:</p><br />
+    <code><pre>
+sudo apt-get install mysql-server mysql-client
+sudo apt-get install apache2
+sudo apt-get install php5 libapache2-mod-php5 php5-mysql</pre></code>
+    <p>At this point, I am now up and running with a supported lamp stack.MySQL Administrator works correctly and I don't have to depend on phpMyAdmin. The apache server is started and stopped automatically. I also did not have to tweak the php error message display level. To me, this has a production feel to it, and this is the correct installation for me to evaluate existing software.</p></div>
+
     </div>
-    <div class="span4">
+</div>
+<p><a href="/blog">more...</a></p>
+
+<div class="row-fluid">
+    <div class="span6">
+        <h3>Recent Posts</h3>
+<ul>
+    
+    <li><a href="/2013/09/05/how-many-spaceneedles/">How Many Space Needles Is That?</a></li>
+    
+    <li><a href="/2013/08/29/new-look/">Our New Look</a></li>
+    
+    <li><a href="/2013/08/26/the-new-39/">42 Is The New 39</a></li>
+    
+    <li><a href="/2013/05/18/exspresso/">Exspresso</a></li>
+    
+    <li><a href="/2012/11/29/im-back/">I'm Back</a></li>
+    
+</ul>
+
+
+    </div>
+    <div class="span6">
         <p>
 <div id="tag-cloud">
     <div><a href="/tag/Drupal" class="set-1">Drupal</a> <a href="/tag/Joomla" class="set-1">Joomla</a> <a href="/tag/LAMP" class="set-1">LAMP</a> <a href="/tag/XAMPP" class="set-5">XAMPP</a> <a href="/tag/Xubuntu" class="set-5">Xubuntu</a> <a href="/tag/coffeescript" class="set-1">coffeescript</a> <a href="/tag/github" class="set-1">github</a> <a href="/tag/misc" class="set-5">misc</a></div>
@@ -117,9 +121,6 @@
 </div>
 
 
-
-    </div>
-</div>
 
 
 <hr />

@@ -1,0 +1,24 @@
+---
+layout: default
+active: home
+---
+
+{% for post in site.posts %}
+{% if forloop.first %}
+        <h1>{{ post.title }}</h1>
+        <p class="muted">{{ post.date | date_to_long_string }}</p>
+
+        {{ post.content }}
+{% endif %}
+{% endfor %}
+
+<div class="row-fluid">
+    <div class="span6">
+        {% include sidebar.html %}
+    </div>
+    <div class="span6">
+        {% include tag-cloud.html %}
+    </div>
+</div>
+<p><a href="/blog">more...</a></p>
+

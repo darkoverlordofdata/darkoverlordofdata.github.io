@@ -1,32 +1,32 @@
-# jekyll
+# huginn
 
 name: "dark overlord of data"
 description: "if it's not dark, it's not data"
 
 disqus: d16a
-isdev: false
-source: ./public
-destination: ./www
+source: ./source
+destination: ./gh-pages
+port: 53610
+url: http://darkoverlordofdata.com
+
+serve:
+  - ./gh-pages
+
+
+plugins:
+  - huginn-asset-bundler
+  - huginn-tag-cloud
 
 tag_page_layout: tag_page
 tag_page_dir: tag
 
-port: 53610
-url: http://darkoverlordofdata.com
-
-paginate: 5
-paginate_path: "list/page:num"
-
-markdown: rdiscount
-permalink: pretty
-pygments: true
-
 asset_bundler:
   compress:
-    js: yui
-    css: yui
+    js: true
+    css: true
   base_path: /assets/
-  server_url:
+  shim: ''
+  server_url: //cdn.darkoverlordofdata.com/
   remove_bundled: false
   dev: false
   markup_templates:

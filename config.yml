@@ -5,7 +5,7 @@ description: "if it's not dark, it's not data"
 
 disqus: d16a
 source: ./source
-destination: ./destination
+destination: ../master
 port: 53610
 url: http://darkoverlordofdata.com
 
@@ -28,6 +28,7 @@ asset_bundler:
     js: true
     css: true
   base_path: /assets/
+  shim: ''
   server_url: //cdn.darkoverlordofdata.com/
   remove_bundled: false
   dev: false

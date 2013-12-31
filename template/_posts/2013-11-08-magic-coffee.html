@@ -1,0 +1,14 @@
+---
+title: Magic Coffee
+layout: post
+tags: coffeescript meta-programming
+---
+One pattern that I wanted to implement for <a href="http://exspresso.darkoverlordofdata.com/">exspresso</a> is used in php frameworks, &nbsp;wherein PHP Magic is used redirect missing property or method references back to the main controller. For an example, take a look at this&nbsp;<a href="https://github.com/EllisLab/CodeIgniter/blob/develop/system/core/Model.php">CodeIgniter Model class</a>.<br />
+<br />
+PHP magic uses __get, _set, and __call. These work much like Ruby's missing_method, and it would be nice to use the same kind of 'magic' in coffeescript, which means javascript.<br />
+<br />
+So how do I implement this in javascript? Catching missing method exceptions won't be scalable. I need to find a different path to the same ends. I know that javascript gives me a different way to trap a missing method. Whenever a method or property is not found, the prototype chain is searched. Coffeescript uses this to implement class inheritance. I also know that the missing methods we're looking for will all be on the current controller instance.<br />
+<br />
+If I can just insert the controller object into the prototype chain of each child object, I will get the same result. This is a simple version of technique I'm using in exspresso:<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/7382016.js"></script>

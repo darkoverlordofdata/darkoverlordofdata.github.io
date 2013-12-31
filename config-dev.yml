@@ -4,7 +4,7 @@ name: "dark overlord of data"
 description: "if it's not dark, it's not data"
 
 disqus: d16a
-source: ./source
+source: ./template
 destination: ./gh-pages
 port: 53610
 url: http://darkoverlordofdata.com

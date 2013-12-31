@@ -1,0 +1,22 @@
+---
+title: Upgrading Linux Mint Cinnamon from Olivia to Petra
+layout: post
+tags: linux mint upgrade
+---
+My present to myself this year was a new operating system. I burned an .iso, wrapped it up, and put it under the tree (yes - I'm a big spender). I installed it today, upgrading my system from Mint 15 to Mint 16.<br />
+<br />
+My laptop is an Inspiron model 3521. It's a basic i3 with 4 gb memory. It came with Windows 7, but I quickly fixed that, installing Linux Mint 15.<br />
+<br />
+I started the upgrade this morning by creating a folder in my home directory named 'backup'. First I copied my .ssh folder into the backup. Then my .Webstorm config folder. That was the easy part. Then I started zipping up some if the bigger folders - ./Documents, followed by ./Pictures, and ./Desktop. And, I put all of these zips into my backup folder. <br />
+<br />
+Now my projects - I zipped up my ./workspace folder, and my ./git folder. My git folder is all copies of projects on github, and as long as my pushes are up to date, I don't really need a backup, I can just git clone them. But then I'd need to visit project folders, running npm install, cake, make, etc. So zipping is really more convenient.<br />
+<br />
+I also went to my ./Downloads, and copied the installs for applications I don't install with apt-get, like eclipse or various sdk's. This way, I know I'll have the same version when I start back up.<br />
+<br />
+When I was one, I zipped my ./backup folder into one big zip, and copied that to my thumb drive. I also put it in dropbox, just in case. I decided to break for lunch - it says that 3gb will take about an hour to upload.<br />
+<br />
+After lunch, I put i the distro, and rebooted. It took about a half hour to install Linux. The first thing I did after I logged in was to run the Update Manager and install the latest patches.<br />
+<br />
+Then I plugged in my thumb drive, and unzipped all my files where I wanted to put them. That was easier said than done. And of course, the next thing I did was visit google to install chrome. The install crashed, saying that I had a corrupt file. Fortunately, I had a copy in the downloads I had backed up, so I installed using that, and continued on.<br />
+<br />
+There were no other issues. All in all, it's the best upgrade experience I've had! And the result is well worth the effort.

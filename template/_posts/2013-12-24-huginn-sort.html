@@ -1,0 +1,22 @@
+---
+title: Ya Sure, You Betcha - It's a Sortin' Huginn Pluginn
+layout: post
+tags: coffeescript huginn
+---
+Or plugin. Anyway - Huginn plugin architecture is simple. You only need a module that exposes 1 function that accepts 1 parameter - the site object. Everything else is a property of the site object.<br />
+<br />
+Plugins are called after all the site date, posts, and drafts have been loaded, and before any output has been processed. This makes the sort plugin almost trivial.<br />
+<br />
+First, update config.yml with the sort parameters:<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/7956924.js?file=config.yml"></script>
+
+Next, copy the code to the _plugins folder:<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/7956924.js?file=huginn_sort.coffee"></script>
+
+Finally, we're going to add this fragment to our template:<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/7956924.js?file=index.html"></script>
+
+I use this to sort the game list on&nbsp;<a href="http://darkoverlordofdata.com/katra/">Katra</a>

@@ -1,0 +1,33 @@
+{
+  "name": "darkoverlordofdata.github.io",
+  "version": "0.0.1",
+  "description": "Static blog pages",
+  "keywords": [
+    "static blog",
+    "coffee-script"
+  ],
+  "author": "bruce davidson <brucedavidson@darkoverlordofdata.com>",
+  "contributors": [
+    {
+      "name": "bruce davidson",
+      "email": "brucedavidson@darkoverlordofdata.com"
+    }
+  ],
+  "dependencies": {
+    "markdown": "~0.5.0",
+    "yaml-js": "0.0.8"
+  },
+  "scripts": {
+  },
+  "bin": {
+  },
+  "devDependencies": {
+  },
+  "repository": "git://github.com/darkoverlordofdata/darkoverlordofdata.github.io",
+  "main": "index",
+  "engines": {
+    "node": ">=0.10.x",
+    "npm": ">=1.x.x"
+  },
+  "license": "MIT"
+}

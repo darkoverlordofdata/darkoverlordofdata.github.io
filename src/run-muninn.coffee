@@ -20,5 +20,5 @@ $ ->
   # Load the plugin
   #
   require './muninn'
-  muninn = $('.muninn').muninn()
+  muninn = $('.muninn').muninn(location.pathname is "/new/")
 

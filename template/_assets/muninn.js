@@ -2,27 +2,31 @@
 (function() {
   (function($, window, document) {
     var Muninn;
-    $.prototype.muninn = function($options) {
+    $.prototype.muninn = function($create, $options) {
       var _ref;
+      if ($create == null) {
+        $create = false;
+      }
       if ($options == null) {
         $options = {};
       }
-      return (_ref = $.data(this, 'muninn')) != null ? _ref : $.data(this, 'muninn', new Muninn(this, $options));
+      return (_ref = $.data(this, 'muninn')) != null ? _ref : $.data(this, 'muninn', new Muninn(this, $create, $options));
     };
     return Muninn = (function() {
-      var path, saveAs, yaml;
-
-      saveAs = require('./FileSaver');
-
-      yaml = require('yaml-js');
+      var chosen, path, saveAs, yaml;
 
       path = require('path');
 
+      yaml = require('yaml-js');
+
+      saveAs = require('./FileSaver');
+
+      chosen = require('chosen-jquery-browserify');
+
       Muninn.prototype["default"] = {
-        title: ' ',
-        date: 'select blog to edit',
-        content: '',
-        css: '//cdn.darkoverlordofdata.com/css/bootstrap.min.css'
+        title: 'Title',
+        date: 'd MM, yy',
+        tags: '#tag-cloud'
       };
 
       Muninn.prototype.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -41,50 +45,70 @@
 
       Muninn.prototype.filename = '';
 
-      function Muninn($container, $options) {
-        var _this = this;
+      Muninn.prototype.select = null;
+
+      Muninn.prototype.chosen = null;
+
+      Muninn.prototype.tags = null;
+
+      function Muninn($container, $create, $options) {
+        var $tag, _i, _len, _ref,
+          _this = this;
         this.options = $.extend(this["default"], $options);
-        $container.html("<input type=\"file\" class=\"btn btn-primary muninn-file\"/>\n<button class=\"btn btn-primary muninn-save\">Save</button>\n<h1 class=\"editable muninn-title\"></h1>\n<p  class=\"editable muted muninn-date\"></p>\n<div class=\"editable muninn-content\"></div>");
+        this.tags = [];
+        _ref = $(this.options.tags).text().split(/\s+/).sort();
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          $tag = _ref[_i];
+          if ($tag !== '') {
+            this.tags.push($tag);
+          }
+        }
+        $container.html("<h1 class=\"muninn-title\"></h1>\n<input class=\"muninn-date muted\" type=\"text\" placeholder=\"Enter Date\" />\n<div class=\"muninn-content\"></div>\n<div class=\"muninn-select\"></div>\n<hr />\n<a class=\"muninn-load btn btn-primary\">Load Post...</a>\n<a class=\"muninn-save btn\">Save Post...</a>\n<input class=\"muninn-file hidden\" type=\"file\" />\n");
         this.title = $container.find('.muninn-title');
         this.date = $container.find('.muninn-date');
         this.content = $container.find('.muninn-content');
+        this.load = $container.find('.muninn-load');
         this.file = $container.find('.muninn-file');
         this.save = $container.find('.muninn-save');
-        this.title.html(this.options.title);
-        this.date.html(this.options.date);
-        this.content.html(this.options.content);
-        this.save.hide();
+        this.date.datepicker({
+          dateFormat: this.options.date
+        });
+        this.select = $container.find('.muninn-select');
+        this.setTags([]);
+        if ($create) {
+          this.load.hide();
+          this.title.html('New Post');
+          this.content.html("<p>Create a new blog post, and save to your _drafts folder.</p>\n<p>To view your changes, use either:</p>\n<code>$ huginn build</code>\n<p>or</p>\n<code>$ jekyll build</code>");
+        } else {
+          this.title.html(this.options.title);
+          this.content.html("<p>Select a post to edit from your _posts or _drafts folder.</p>\n<p>To view your changes, use either:</p>\n<code>$ huginn build</code>\n<p>or</p>\n<code>$ jekyll build</code>");
+        }
         tinymce.init({
-          selector: 'h1.editable',
+          selector: '.muninn-title',
           inline: true,
           menubar: false,
-          content_css: this.options.css,
           toolbar: 'undo redo'
         });
         tinymce.init({
-          selector: 'p.editable',
+          selector: '.muninn-content',
           inline: true,
           menubar: false,
-          content_css: this.options.css,
-          toolbar: 'undo redo'
+          plugins: ['advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker', 'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking', 'table contextmenu directionality emoticons template textcolor paste fullpage textcolor'],
+          toolbar1: 'newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect',
+          toolbar2: 'cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor',
+          toolbar3: 'table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft'
         });
-        tinymce.init({
-          selector: 'div.editable',
-          inline: true,
-          menubar: false,
-          content_css: this.options.css,
-          plugins: ["advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker", "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking", "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"],
-          toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
-          toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
-          toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft"
-        });
+        this.setTags([]);
         this.file.on('change', function($e) {
-          var files, reader;
-          files = $e.target.files;
+          var $file, reader;
+          $file = $e.target.files[0];
+          if (!/\.html$/.test($file.name) && !/\.md$/.test($file.name)) {
+            return alert('Invalid Filetype');
+          }
           reader = new FileReader;
           reader.onload = (function($file) {
             return function($e) {
-              var $buf, $dd, $ext, $hdr, $mm, $name, $seg, $yy;
+              var $buf, $dd, $ext, $hdr, $mm, $name, $seg, $tags, $yy, _ref1;
               $buf = $e.target.result;
               $hdr = {};
               if ($buf.slice(0, 4) === '---\n') {
@@ -100,21 +124,58 @@
               $dd = $seg.shift();
               _this.content.html($buf);
               _this.title.html($hdr.title);
-              _this.date.html($dd + ' ' + _this.months[$mm - 1] + ', ' + $yy);
-              _this.file.hide();
-              _this.save.show();
-              return _this.filename = $file.name;
+              _this.date.datepicker('setDate', new Date($yy, $mm - 1, $dd));
+              _this.filename = $file.name;
+              $tags = (_ref1 = $hdr != null ? $hdr.tags.split(' ') : void 0) != null ? _ref1 : [];
+              return _this.setTags($tags);
             };
-          })(files[0]);
-          return reader.readAsBinaryString(files[0]);
+          })($file);
+          return reader.readAsBinaryString($file);
+        });
+        this.load.on('click', function($e) {
+          return _this.file.get(0).click();
         });
         this.save.on('click', function($e) {
-          var $blob, $data;
-          $data = ["---\n", "title: " + (_this.title.html()) + "\n", "---\n", _this.content.html()];
-          $blob = new Blob($data);
-          return saveAs($blob, "document.xhtml");
+          var $data, $tags;
+          $tags = [];
+          $data = ["---\n", "title: " + (_this.title.html()) + "\n", "tags: " + ($tags.join(' ')), "---\n", _this.content.html()];
+          return saveAs(new Blob($data), _this.filename);
         });
       }
+
+      Muninn.prototype.setTags = function($tags) {
+        var $html, $tag, _i, _len, _ref;
+        $html = "<select data-placeholder=\"select tag\" multiple class=\"chosen-select\">";
+        _ref = this.tags;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          $tag = _ref[_i];
+          if ($tags.indexOf($tag) === -1) {
+            $html += "<option>" + $tag + "</option>";
+          } else {
+            $html += "<option selected>" + $tag + "</option>";
+          }
+        }
+        $html += "</select>";
+        this.select.html($html);
+        this.chosen = this.select.find('.chosen-select');
+        this.chosen.css({
+          width: '350px'
+        });
+        return this.chosen.chosen().change(function($e) {
+          var $option, _j, _len1, _ref1, _results;
+          _ref1 = $e.target;
+          _results = [];
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            $option = _ref1[_j];
+            if ($option.selected) {
+              _results.push(console.log($option.label));
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
+        });
+      };
 
       return Muninn;
 

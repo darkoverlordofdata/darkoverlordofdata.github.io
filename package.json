@@ -15,14 +15,12 @@
   ],
   "dependencies": {
     "markdown": "~0.5.0",
-    "yaml-js": "0.0.8"
+    "yaml-js": "0.0.8",
+    "chosen-jquery-browserify": "~1.0.0"
   },
-  "scripts": {
-  },
-  "bin": {
-  },
-  "devDependencies": {
-  },
+  "scripts": {},
+  "bin": {},
+  "devDependencies": {},
   "repository": "git://github.com/darkoverlordofdata/darkoverlordofdata.github.io",
   "main": "index",
   "engines": {

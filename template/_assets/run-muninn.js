@@ -3,7 +3,7 @@
   $(function() {
     var muninn;
     require('./muninn');
-    return muninn = $('.muninn').muninn();
+    return muninn = $('.muninn').muninn(location.pathname === "/new/");
   });
 
 }).call(this);

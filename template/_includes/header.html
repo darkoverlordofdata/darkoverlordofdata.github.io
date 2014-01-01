@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
     {% if site.isdev == true %}
         {% bundle %}
@@ -17,7 +18,8 @@
     {% else %}
         <link rel='stylesheet' href='//cdn.darkoverlordofdata.com/css/bootstrap.min.css' type='text/css'/>
         {% bundle %}
-        - /_assets/fonts.css
+        - /_assets/chosen.min.css
+        - /_assets/site.css
         - /_assets/site.css
         {% endbundle %}
         <link rel='stylesheet' href='//cdn.darkoverlordofdata.com/css/bootstrap-responsive.min.css' type='text/css'/>

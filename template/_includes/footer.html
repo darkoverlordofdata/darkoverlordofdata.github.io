@@ -2,14 +2,23 @@
 <hr />
 <p></p>
 <p>Created with <a href="/huginn">Huginn</a>
+{% if page.addon != 'muninn' %}
 <a href="/edit" title="edit posts" class="btn btn-primary btn-mini"><i class="icon icon-pencil icon-white"> </i>...</a>
-
+{% endif %}
 </p>
 <p>Projects by Dark Overlord of Data</p>
 <p><a href="/katra">Katra</a> BASIC language interpreter in CoffeeScript</p>
 <p><a href="http://exspresso.darkoverlordofdata.com">Exspresso</a> A CoffeeScript MVC Web Framework</p>
 </div>
+{% if page.addon == 'muninn' %}
+<script type="text/javascript" src="//code.jquery.com/jquery-2.0.2.min.js" ></script>
+<script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript" src="//cdn.darkoverlordofdata.com/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript" src="/assets/muninn.js"></script>
+{% else %}
 <script type="text/javascript" src="//code.jquery.com/jquery-2.0.2.min.js" ></script>
 <script type="text/javascript" src="//cdn.darkoverlordofdata.com/js/bootstrap.min.js" ></script>
+{% endif %}
 </body>
 </html>

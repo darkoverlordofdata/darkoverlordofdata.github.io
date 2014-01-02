@@ -145,6 +145,9 @@
         });
         this.save.on('click', function($e) {
           var $data, $date, $dd, $key, $mm, $slug, $val, $yy, _ref1, _ref2;
+          if (_this.hdr == null) {
+            _this.hdr = {};
+          }
           _this.hdr.title = _this.title.html();
           _this.hdr.tags = _this.selected.join(' ');
           _this.hdr.comments = _this.status;

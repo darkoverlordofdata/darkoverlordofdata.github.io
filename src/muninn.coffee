@@ -245,6 +245,7 @@ do ($ = jQuery, window, document) ->
       #
       @save.on 'click', ($e) =>
 
+        @hdr = {} unless @hdr?
         @hdr.title = @title.html()
         @hdr.tags = @selected.join(' ')
         @hdr.comments = @status

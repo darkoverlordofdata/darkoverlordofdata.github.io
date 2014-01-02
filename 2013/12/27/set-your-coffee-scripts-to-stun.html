@@ -52,26 +52,35 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <h1>Ya Sure, You Betcha - It's a Sortin' Huginn Pluginn</h1>
-        <p class="muted">24 Decenber 2013</p>
+        <h1>Set Your Coffee-Scripts to Stun</h1>
+        <p class="muted">27 Decenber 2013</p>
 
-        Or plugin. Anyway - Huginn plugin architecture is simple. You only need a module that exposes 1 function that accepts 1 parameter - the site object. Everything else is a property of the site object.<br />
+        After reviewing several HTML5 game engines, I've decided to spend some time with <a href="http://phaser.io/">Phaser</a>. My primary consideration has to be gameplay, and after trying a bunch of demos, I felt that Phaser was one of the top contenders. With comparable gameplay, I next looked at the development environment and framework.<br />
 <br />
-Plugins are called after all the site date, posts, and drafts have been loaded, and before any output has been processed. This makes the sort plugin almost trivial.<br />
-<br />
-First, update config.yml with the sort parameters:<br />
-<br />
-<script src="https://gist.github.com/darkoverlordofdata/7956924.js?file=config.yml"></script>
+Here is why I like Phaser:<br />
+<ul>
+    <li>No special workbench is needed. My favorite editor will work, as well as the one I happen to be using.</li>
+    <li>Cross platform on the dev side. I use Linux.</li>
+    <li>Ecma standard script - not ActionScript or anything else, but real javascript.</li>
+    <li>Agnostic oop - I'm not forced into any class patterns.</li>
+</ul>
+<div>
+    Best of all, due to those last two points, Phaser is compatible with coffee-script. As my tag cloud tells me, that is my favorite topic, &nbsp;so with a bit of playing around, I ported <a href="http://www.photonstorm.com/phaser/tutorial-making-your-first-phaser-game">this tutorial</a> to coffee-script.<br />
+    <br /></div>
+<div>
+    At the moment, there is a workaround patch needed for coffee-script classes to work. This could be fixed in an upcoming release, but for now we need to ensure that the prototype.constructor is set:<br />
+    <br /></div>
+<script src="https://gist.github.com/darkoverlordofdata/8119452.js?file=phaser_patch.coffee"></script>
 
-Next, copy the code to the _plugins folder:<br />
 <br />
-<script src="https://gist.github.com/darkoverlordofdata/7956924.js?file=huginn_sort.coffee"></script>
-
-Finally, we're going to add this fragment to our template:<br />
+<div>
+    <br />
+    Now the code - this is just the final listing from the demo:<br />
+    <br /></div>
 <br />
-<script src="https://gist.github.com/darkoverlordofdata/7956924.js?file=index.html"></script>
+<script src="https://gist.github.com/darkoverlordofdata/8119452.js?file=game.coffee"></script>
 
-I use this to sort the game list on&nbsp;<a href="http://darkoverlordofdata.com/katra/">Katra</a>
+Lastly, compile to javascript for use in your html. While you can use coffee-script on the browser side, it impacts load time.
     </div>
 </div>
 <p><a href="/blog">more...</a></p>
@@ -108,6 +117,21 @@ I use this to sort the game list on&nbsp;<a href="http://darkoverlordofdata.com/
     </div>
 </div>
 
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "darkoverlordofdata"; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
 <hr />

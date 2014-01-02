@@ -20,24 +20,23 @@
 #   jquery 2.0.2
 #   jquery-ui 1.10.3
 #   tinymce 4.0
+#   FileSaver 2013.1.23
 #   yaml-js 0.0.8
+#   chosen (chosen-jquery-browserify) 1.0.0
 #
+
 do ($ = jQuery, window, document) ->
+
 
   #
   # Muninn Plugin
   #
-  # @param  [Boolean] create true = new, false = edit
   # @param  [Object]  options hash
   # @return [Object]  the plugin
   #
-  $::muninn = ($create = false, $options = {}) ->
+  $::muninn = ($options = {}) ->
 
-#    $('head').append """
-#      <style>
-#      </style>
-#      """
-    $.data(@, 'muninn') ? $.data(@, 'muninn', new Muninn(@, $create, $options))
+    $.data(@, 'muninn') ? $.data(@, 'muninn', new Muninn(@, $options))
 
 
   class Muninn
@@ -62,6 +61,11 @@ do ($ = jQuery, window, document) ->
     select: null
     chosen: null
     tags: null
+    tag: null
+    add: null
+    selected: null
+    comments: null
+    status: 'none'
     #
     # Create a new blog editor
     #
@@ -69,9 +73,10 @@ do ($ = jQuery, window, document) ->
     # @param  [Object]  options hash
     # @return [Void]
     #
-    constructor: ($container, $create, $options) ->
+    constructor: ($container, $options) ->
 
       @options = $.extend(@default, $options)
+
       @tags = []
       for $tag in $(@options.tags).text().split(/\s+/).sort()
         if $tag isnt ''
@@ -82,46 +87,62 @@ do ($ = jQuery, window, document) ->
       #
 
       $container.html """
+        <div class="span12">
           <h1 class="muninn-title"></h1>
           <input class="muninn-date muted" type="text" placeholder="Enter Date" />
           <div class="muninn-content"></div>
+          <br />
+        </div>
+        <div class="well span7">
           <div class="muninn-select"></div>
-          <hr />
-          <a class="muninn-load btn btn-primary">Load Post...</a>
-          <a class="muninn-save btn">Save Post...</a>
+          <div class="input-append">
+            <input placeholder="Ener new tag" class="muninn-tag span6" type="text">
+            <button class="muninn-add btn" type="button"><i class="icon icon-tag"> </i></button>
+          </div>
+          <label class="radio">
+            <input class="muninn-comments" name="muninn-comments" id="muninn-comments-none" type="radio" value="none" checked> Comments are not enabled
+          </label>
+          <label class="radio">
+            <input class="muninn-comments" name="muninn-comments" id="muninn-comments-open" type="radio" value="open"> Comments are Open
+          </label>
+          <label class="radio">
+            <input class="muninn-comments" name="muninn-comments" id="muninn-comments-closed" type="radio" value="closed"> Comments are Closed
+          </label>
+          <div class="span6"></div>
+          <div class="btn-group">
+          <a class="muninn-load btn btn-primary"><i class="icon icon-upload icon-white"> </i> Load...</a>
+          <a class="muninn-save btn"><i class="icon icon-download"> </i> Save...</a>
+          </div>
           <input class="muninn-file hidden" type="file" />
-
+        </div>
         """
+
+
       @title = $container.find('.muninn-title')
       @date = $container.find('.muninn-date')
       @content = $container.find('.muninn-content')
-      @load = $container.find('.muninn-load')
+      @select = $container.find('.muninn-select')
+      @tag = $container.find('.muninn-tag')
+      @add = $container.find('.muninn-add')
+      @comments = $container.find('.muninn-comments')
       @file = $container.find('.muninn-file')
+      @load = $container.find('.muninn-load')
       @save = $container.find('.muninn-save')
       @date.datepicker dateFormat: @options.date
-      @select = $container.find('.muninn-select')
 
-      @setTags []
+      @selected = []
 
-      if $create
-        @load.hide()
-        @title.html 'New Post'
-        @content.html """
-            <p>Create a new blog post, and save to your _drafts folder.</p>
-            <p>To view your changes, use either:</p>
-            <code>$ huginn build</code>
-            <p>or</p>
-            <code>$ jekyll build</code>
-          """
-      else
-        @title.html @options.title
-        @content.html """
-            <p>Select a post to edit from your _posts or _drafts folder.</p>
-            <p>To view your changes, use either:</p>
-            <code>$ huginn build</code>
-            <p>or</p>
-            <code>$ jekyll build</code>
-          """
+      @title.html @options.title
+      @content.html """
+          <div class="muted">
+          <p>Use this page to edit or create new posts. Create a new post,
+          or select a post to edit from your _posts or _drafts folder.</p>
+          <p>To update your site with your changes, use either:</p>
+          <code>$ huginn build</code>
+          <p>or</p>
+          <code>$ jekyll build</code>
+          </div>
+        """
 
       tinymce.init
         selector: '.muninn-title'
@@ -142,7 +163,7 @@ do ($ = jQuery, window, document) ->
         toolbar2: 'cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor',
         toolbar3: 'table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft',
 
-      @setTags []
+      @setTags @selected
 
       #
       # Input[type=file] Change Event
@@ -178,8 +199,11 @@ do ($ = jQuery, window, document) ->
             @title.html $hdr.title
             @date.datepicker('setDate', new Date($yy, $mm-1, $dd))
             @filename = $file.name
-            $tags = $hdr?.tags.split(' ') ? []
-            @setTags $tags
+            @selected = $hdr?.tags.split(' ') ? []
+            @comments = $hdr?.comments ? 'none'
+            $container.find('#muninn-comments-'+@comments).prop 'checked', true
+
+            @setTags @selected
 
 
         )($file)
@@ -202,15 +226,36 @@ do ($ = jQuery, window, document) ->
       #
       @save.on 'click', ($e) =>
 
-        $tags = []
         $data = [
           "---\n"
           "title: #{@title.html()}\n"
-          "tags: #{$tags.join(' ')}"
+          "tags: #{@selected.join(' ')}\n"
+          "comments: #{@status}\n"
           "---\n"
           @content.html()
         ]
+        if @filename is ''
+          $date = @date.datepicker('getDate') ? new Date
+          $mm = String($date.getMonth()+1)
+          $dd = String($date.getDate())
+          $yy = String($date.getFullYear())
+          $dd = '0'+$dd if $dd.length is 1
+          $mm = '0'+$mm if $mm.length is 1
+          $slug = @title.html().toLowerCase().replace(/\s+/g, '-')
+          @filename = "#{$yy}-#{$mm}-#{$dd}-#{$slug}.html"
+
         saveAs new Blob($data), @filename
+
+      @add.on 'click', ($e) =>
+        unless @tag.val() is ''
+          @selected.push @tag.val()
+          @tags.push @tag.val()
+          @tag.val ''
+          @tags = @tags.sort()
+          @setTags @selected
+
+      @comments.on 'change', ($e) =>
+        @status = $e.target.value
 
     #
     # Set Tags
@@ -220,7 +265,7 @@ do ($ = jQuery, window, document) ->
     #
     setTags: ($tags) ->
 
-      $html = "<select data-placeholder=\"select tag\" multiple class=\"chosen-select\">"
+      $html = "<select data-placeholder=\"Select Tag\" multiple class=\"chosen-select\">"
       for $tag in @tags
         if $tags.indexOf($tag) is -1
           $html += "<option>#{$tag}</option>"
@@ -231,7 +276,8 @@ do ($ = jQuery, window, document) ->
 
       @select.html $html
       @chosen = @select.find('.chosen-select')
-      @chosen.css width: '350px'
+      @chosen.css width: '400px'
+      @chosen.chosen no_results_text: 'no match...'
 
 
       #
@@ -240,13 +286,13 @@ do ($ = jQuery, window, document) ->
       # @param  [Event] e
       # @return [Void]
       #
-      @chosen.chosen().change ($e) ->
+      @chosen.chosen().change ($e) =>
 
         #
         # update the tags list
         #
-        @tags = []
+        @selected = []
         for $option in $e.target
           if $option.selected
-            @tags.push $option.label
+            @selected.push $option.label
 

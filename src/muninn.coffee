@@ -15,14 +15,11 @@
 #
 # Content Editor for Huginn
 #
-# Dependencies:
+# External dependencies:
 #
 #   jquery 2.0.2
 #   jquery-ui 1.10.3
 #   tinymce 4.0
-#   FileSaver 2013.1.23
-#   yaml-js 0.0.8
-#   chosen (chosen-jquery-browserify) 1.0.0
 #
 
 do ($ = jQuery, window, document) ->
@@ -41,31 +38,35 @@ do ($ = jQuery, window, document) ->
 
   class Muninn
 
-    path = require('path')
-    yaml = require('yaml-js')
-    saveAs = require('./FileSaver')
-    chosen = require('chosen-jquery-browserify')
+    path = require('path')                        # browserifyjs 3.16.1
+    yaml = require('yaml-js')                     # yaml-js 0.0.8
+    saveAs = require('./FileSaver')               # filesaver.js 2013.1.23
+    chosen = require('chosen-jquery-browserify')  # chosen 1.0.0
 
-    default     :
-      title     : 'Title'
-      date      : 'd MM, yy'
-      tags      : '#tag-cloud'
+    default         : # Options:
+      title         : 'Title'
+      date          : 'd MM, yy'
+      tags          : '#tag-cloud'
 
-    options: null
-    title: null
-    date: null
-    content: null
-    file: null
-    save: null
-    filename: ''
-    select: null
-    chosen: null
-    tags: null
-    tag: null
-    add: null
-    selected: null
-    comments: null
-    status: 'none'
+    options: null   # constructor options hash
+    selected: null  # list of chosen tags
+    tags: null      # list of tags
+    filename: ''    # filename
+    status: 'none'  # comment status
+                    #
+                    # UI Elements
+    title: null     # blog title
+    date: null      # blog date
+    content: null   # blog content
+    chosen: null    # dropdown list of available tags
+    file: null      # hidden input[type='file']
+    save: null      # save file button
+    load: null      # load file button
+    select: null    # tag selector
+    tag: null       # new tag input
+    add: null       # add tag button
+    comments: null  # radio buttons comment status
+
     #
     # Create a new blog editor
     #
@@ -77,6 +78,9 @@ do ($ = jQuery, window, document) ->
 
       @options = $.extend(@default, $options)
 
+      #
+      # Grab the tag list from the tag-cloud on this page
+      #
       @tags = []
       for $tag in $(@options.tags).text().split(/\s+/).sort()
         if $tag isnt ''
@@ -85,7 +89,6 @@ do ($ = jQuery, window, document) ->
       #
       # render the ui
       #
-
       $container.html """
         <div class="span12">
           <h1 class="muninn-title"></h1>
@@ -117,7 +120,9 @@ do ($ = jQuery, window, document) ->
         </div>
         """
 
-
+      #
+      # cache the ui elements
+      #
       @title = $container.find('.muninn-title')
       @date = $container.find('.muninn-date')
       @content = $container.find('.muninn-content')
@@ -128,11 +133,27 @@ do ($ = jQuery, window, document) ->
       @file = $container.find('.muninn-file')
       @load = $container.find('.muninn-load')
       @save = $container.find('.muninn-save')
+
+
+      #
+      # Title edit
+      #
+      @title.html @options.title
+      tinymce.init
+        selector: '.muninn-title'
+        inline: true
+        menubar: false
+        toolbar: 'undo redo'
+
+
+      #
+      # Date edit
+      #
       @date.datepicker dateFormat: @options.date
 
-      @selected = []
-
-      @title.html @options.title
+      #
+      # Content edit
+      #
       @content.html """
           <div class="muted">
           <p>Use this page to edit or create new posts. Create a new post,
@@ -143,13 +164,6 @@ do ($ = jQuery, window, document) ->
           <code>$ jekyll build</code>
           </div>
         """
-
-      tinymce.init
-        selector: '.muninn-title'
-        inline: true
-        menubar: false
-        toolbar: 'undo redo'
-
       tinymce.init
         selector: '.muninn-content'
         inline: true
@@ -163,6 +177,10 @@ do ($ = jQuery, window, document) ->
         toolbar2: 'cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor',
         toolbar3: 'table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft',
 
+      #
+      # Tags edit
+      #
+      @selected = []
       @setTags @selected
 
       #
@@ -210,7 +228,7 @@ do ($ = jQuery, window, document) ->
         reader.readAsBinaryString $file
 
       #
-      # Load Post Click Event
+      # Load Button Click Event
       #
       # @param  [Event] e
       # @return [Void]
@@ -219,7 +237,7 @@ do ($ = jQuery, window, document) ->
         @file.get(0).click()
 
       #
-      # Save Post Click Event
+      # Save Button Click Event
       #
       # @param  [Event] e
       # @return [Void]
@@ -246,6 +264,12 @@ do ($ = jQuery, window, document) ->
 
         saveAs new Blob($data), @filename
 
+      #
+      # Add Tag Button Click Event
+      #
+      # @param  [Event] e
+      # @return [Void]
+      #
       @add.on 'click', ($e) =>
         unless @tag.val() is ''
           @selected.push @tag.val()
@@ -254,6 +278,12 @@ do ($ = jQuery, window, document) ->
           @tags = @tags.sort()
           @setTags @selected
 
+      #
+      # Comments Status Change Event
+      #
+      # @param  [Event] e
+      # @return [Void]
+      #
       @comments.on 'change', ($e) =>
         @status = $e.target.value
 
@@ -281,7 +311,7 @@ do ($ = jQuery, window, document) ->
 
 
       #
-      # Change Event
+      # Selected Tags Change Event
       #
       # @param  [Event] e
       # @return [Void]

@@ -28,33 +28,35 @@
 
       Muninn.prototype.options = null;
 
+      Muninn.prototype.selected = null;
+
+      Muninn.prototype.tags = null;
+
+      Muninn.prototype.filename = '';
+
+      Muninn.prototype.status = 'none';
+
       Muninn.prototype.title = null;
 
       Muninn.prototype.date = null;
 
       Muninn.prototype.content = null;
 
+      Muninn.prototype.chosen = null;
+
       Muninn.prototype.file = null;
 
       Muninn.prototype.save = null;
 
-      Muninn.prototype.filename = '';
+      Muninn.prototype.load = null;
 
       Muninn.prototype.select = null;
-
-      Muninn.prototype.chosen = null;
-
-      Muninn.prototype.tags = null;
 
       Muninn.prototype.tag = null;
 
       Muninn.prototype.add = null;
 
-      Muninn.prototype.selected = null;
-
       Muninn.prototype.comments = null;
-
-      Muninn.prototype.status = 'none';
 
       function Muninn($container, $options) {
         var $tag, _i, _len, _ref,
@@ -79,18 +81,17 @@
         this.file = $container.find('.muninn-file');
         this.load = $container.find('.muninn-load');
         this.save = $container.find('.muninn-save');
-        this.date.datepicker({
-          dateFormat: this.options.date
-        });
-        this.selected = [];
         this.title.html(this.options.title);
-        this.content.html("<div class=\"muted\">\n<p>Use this page to edit or create new posts. Create a new post,\nor select a post to edit from your _posts or _drafts folder.</p>\n<p>To update your site with your changes, use either:</p>\n<code>$ huginn build</code>\n<p>or</p>\n<code>$ jekyll build</code>\n</div>");
         tinymce.init({
           selector: '.muninn-title',
           inline: true,
           menubar: false,
           toolbar: 'undo redo'
         });
+        this.date.datepicker({
+          dateFormat: this.options.date
+        });
+        this.content.html("<div class=\"muted\">\n<p>Use this page to edit or create new posts. Create a new post,\nor select a post to edit from your _posts or _drafts folder.</p>\n<p>To update your site with your changes, use either:</p>\n<code>$ huginn build</code>\n<p>or</p>\n<code>$ jekyll build</code>\n</div>");
         tinymce.init({
           selector: '.muninn-content',
           inline: true,
@@ -100,6 +101,7 @@
           toolbar2: 'cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor',
           toolbar3: 'table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft'
         });
+        this.selected = [];
         this.setTags(this.selected);
         this.file.on('change', function($e) {
           var $file, reader;

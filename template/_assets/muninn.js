@@ -36,6 +36,8 @@
 
       Muninn.prototype.status = 'none';
 
+      Muninn.prototype.hdr = null;
+
       Muninn.prototype.title = null;
 
       Muninn.prototype.date = null;
@@ -112,12 +114,12 @@
           reader = new FileReader;
           reader.onload = (function($file) {
             return function($e) {
-              var $buf, $dd, $ext, $hdr, $mm, $name, $seg, $yy, _ref1, _ref2;
+              var $buf, $dd, $ext, $mm, $name, $seg, $yy, _ref1, _ref2, _ref3, _ref4;
               $buf = $e.target.result;
-              $hdr = {};
+              _this.hdr = {};
               if ($buf.slice(0, 4) === '---\n') {
                 $buf = $buf.split('---\n');
-                $hdr = yaml.load($buf[1]);
+                _this.hdr = yaml.load($buf[1]);
                 $buf = $buf[2];
               }
               $ext = path.extname($file.name);
@@ -127,11 +129,11 @@
               $mm = $seg.shift();
               $dd = $seg.shift();
               _this.content.html($buf);
-              _this.title.html($hdr.title);
+              _this.title.html(_this.hdr.title);
               _this.date.datepicker('setDate', new Date($yy, $mm - 1, $dd));
               _this.filename = $file.name;
-              _this.selected = (_ref1 = $hdr != null ? $hdr.tags.split(' ') : void 0) != null ? _ref1 : [];
-              _this.comments = (_ref2 = $hdr != null ? $hdr.comments : void 0) != null ? _ref2 : 'none';
+              _this.selected = (_ref1 = (_ref2 = _this.hdr) != null ? _ref2.tags.split(' ') : void 0) != null ? _ref1 : [];
+              _this.comments = (_ref3 = (_ref4 = _this.hdr) != null ? _ref4.comments : void 0) != null ? _ref3 : 'none';
               $container.find('#muninn-comments-' + _this.comments).prop('checked', true);
               return _this.setTags(_this.selected);
             };
@@ -142,10 +144,20 @@
           return _this.file.get(0).click();
         });
         this.save.on('click', function($e) {
-          var $data, $date, $dd, $mm, $slug, $yy, _ref1;
-          $data = ["---\n", "title: " + (_this.title.html()) + "\n", "tags: " + (_this.selected.join(' ')) + "\n", "comments: " + _this.status + "\n", "---\n", _this.content.html()];
+          var $data, $date, $dd, $key, $mm, $slug, $val, $yy, _ref1, _ref2;
+          _this.hdr.title = _this.title.html();
+          _this.hdr.tags = _this.selected.join(' ');
+          _this.hdr.comments = _this.status;
+          $data = ["---\n"];
+          _ref1 = _this.hdr;
+          for ($key in _ref1) {
+            $val = _ref1[$key];
+            $data.push("" + $key + ": " + $val + "\n");
+          }
+          $data.push("---\n");
+          $data.push(_this.content.html());
           if (_this.filename === '') {
-            $date = (_ref1 = _this.date.datepicker('getDate')) != null ? _ref1 : new Date;
+            $date = (_ref2 = _this.date.datepicker('getDate')) != null ? _ref2 : new Date;
             $mm = String($date.getMonth() + 1);
             $dd = String($date.getDate());
             $yy = String($date.getFullYear());

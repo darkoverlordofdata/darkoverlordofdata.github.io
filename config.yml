@@ -3,19 +3,19 @@
 name: "dark overlord of data"
 description: "if it's not dark, it's not data"
 
-disqus: d16a
+disqus: darkoverlordofdata
 source: ./template
 destination: ../master
 port: 53610
 url: http://darkoverlordofdata.com
 
-paginate: 5
-paginate_path: "list/page:num"
-
-markdown: rdiscount
-permalink: pretty
-pygments: true
-
+#paginate: 5
+#paginate_path: "list/page:num"
+#
+#markdown: rdiscount
+#permalink: pretty
+#pygments: true
+#
 plugins:
   - huginn-asset-bundler
   - huginn-tag-cloud

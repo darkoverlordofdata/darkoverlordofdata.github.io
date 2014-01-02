@@ -53,6 +53,7 @@ do ($ = jQuery, window, document) ->
     tags: null      # list of tags
     filename: ''    # filename
     status: 'none'  # comment status
+    hdr: null       # template header info
                     #
                     # UI Elements
     title: null     # blog title
@@ -199,11 +200,11 @@ do ($ = jQuery, window, document) ->
         reader.onload = ( ($file) =>
           return ($e) =>
             $buf = $e.target.result
-            $hdr = {}
+            @hdr = {}
             if $buf[0..3] is '---\n'
               # pull out the header and parse with yaml
               $buf = $buf.split('---\n')
-              $hdr = yaml.load($buf[1])
+              @hdr = yaml.load($buf[1])
               $buf = $buf[2]
 
             $ext = path.extname($file.name)
@@ -214,11 +215,11 @@ do ($ = jQuery, window, document) ->
             $dd = $seg.shift()
 
             @content.html $buf
-            @title.html $hdr.title
+            @title.html @hdr.title
             @date.datepicker('setDate', new Date($yy, $mm-1, $dd))
             @filename = $file.name
-            @selected = $hdr?.tags.split(' ') ? []
-            @comments = $hdr?.comments ? 'none'
+            @selected = @hdr?.tags.split(' ') ? []
+            @comments = @hdr?.comments ? 'none'
             $container.find('#muninn-comments-'+@comments).prop 'checked', true
 
             @setTags @selected
@@ -244,14 +245,15 @@ do ($ = jQuery, window, document) ->
       #
       @save.on 'click', ($e) =>
 
-        $data = [
-          "---\n"
-          "title: #{@title.html()}\n"
-          "tags: #{@selected.join(' ')}\n"
-          "comments: #{@status}\n"
-          "---\n"
-          @content.html()
-        ]
+        @hdr.title = @title.html()
+        @hdr.tags = @selected.join(' ')
+        @hdr.comments = @status
+        $data = ["---\n"]
+        for $key, $val of @hdr
+          $data.push "#{$key}: #{$val}\n"
+        $data.push "---\n"
+        $data.push @content.html()
+
         if @filename is ''
           $date = @date.datepicker('getDate') ? new Date
           $mm = String($date.getMonth()+1)

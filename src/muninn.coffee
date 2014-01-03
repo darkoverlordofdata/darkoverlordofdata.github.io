@@ -42,6 +42,7 @@ do ($ = jQuery, window, document) ->
     yaml = require('yaml-js')                     # yaml-js 0.0.8
     saveAs = require('./FileSaver')               # filesaver.js 2013.1.23
     chosen = require('chosen-jquery-browserify')  # chosen 1.0.0
+    beautify = require('js-beautify').html        # js-beautify 1.4.2
 
     default         : # Options:
       title         : 'Title'
@@ -169,6 +170,9 @@ do ($ = jQuery, window, document) ->
         selector: '.muninn-content'
         inline: true
         menubar: false
+        remove_linebreaks : false
+        force_p_newlines : false
+        force_br_newlines : false
         plugins: [
           'advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker',
           'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
@@ -246,14 +250,15 @@ do ($ = jQuery, window, document) ->
       @save.on 'click', ($e) =>
 
         @hdr = {} unless @hdr?
-        @hdr.title = @title.html()
+        @hdr.title = @title.text()
         @hdr.tags = @selected.join(' ')
         @hdr.comments = @status
+        @hdr.layout = 'post' unless @hdr.layout?
         $data = ["---\n"]
         for $key, $val of @hdr
           $data.push "#{$key}: #{$val}\n"
         $data.push "---\n"
-        $data.push @content.html()
+        $data.push beautify(@content.html())
 
         if @filename is ''
           $date = @date.datepicker('getDate') ? new Date
@@ -262,7 +267,7 @@ do ($ = jQuery, window, document) ->
           $yy = String($date.getFullYear())
           $dd = '0'+$dd if $dd.length is 1
           $mm = '0'+$mm if $mm.length is 1
-          $slug = @title.html().toLowerCase().replace(/\s+/g, '-')
+          $slug = @title.text().toLowerCase().replace(/\s+/g, '-')
           @filename = "#{$yy}-#{$mm}-#{$dd}-#{$slug}.html"
 
         saveAs new Blob($data), @filename

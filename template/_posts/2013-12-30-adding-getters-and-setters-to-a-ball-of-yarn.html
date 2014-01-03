@@ -1,0 +1,29 @@
+---
+title: Adding Getters and Setters to a Ball of Yarn
+layout: post
+tags: coffeescript meta-programming
+comments: open
+---
+That doesn't sound very useful. But you know what does? Adding getters and setters to a coffee-script class - after all, typescript has them, and I want to have similar functionality in my coffee-script.<br />
+<br />
+Getters and setters are implemented using the Object.defineProperty method. We could implement each property with a call to this method, but I don't want to type a bunch of cruft to define each class property. So lets do it meta - after all, coffee-script IS javascript!<br />
+<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=getter.coffee"></script>
+
+Notice that I've augmented the Function object (:: is coffescript notation for prototype). &nbsp;This will add a get method to all functions, and in coffeescript a class is a function. We can define set the same way:<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=setter.coffee"></script>
+
+But what does that get us? Lets look at an implementation:<br />
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=heartofgold.coffee"></script>
+
+Inside of a class definition, but outside of a method scope, @ (this) refers to the class. So we are calling the get method of the class that we defined earlier, to define a getter on the class.<br />
+<br />
+And, if we explicitly invoke the super object, we can inherit the new attributes:
+<br />
+<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=zaphod.coffee"></script>
+
+Now aren't we glad we didn't turn into a big ball of yarn!
+

@@ -10,7 +10,7 @@
       return (_ref = $.data(this, 'muninn')) != null ? _ref : $.data(this, 'muninn', new Muninn(this, $options));
     };
     return Muninn = (function() {
-      var chosen, path, saveAs, yaml;
+      var beautify, chosen, path, saveAs, yaml;
 
       path = require('path');
 
@@ -19,6 +19,8 @@
       saveAs = require('./FileSaver');
 
       chosen = require('chosen-jquery-browserify');
+
+      beautify = require('js-beautify').html;
 
       Muninn.prototype["default"] = {
         title: 'Title',
@@ -98,6 +100,9 @@
           selector: '.muninn-content',
           inline: true,
           menubar: false,
+          remove_linebreaks: false,
+          force_p_newlines: false,
+          force_br_newlines: false,
           plugins: ['advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker', 'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking', 'table contextmenu directionality emoticons template textcolor paste fullpage textcolor'],
           toolbar1: 'newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect',
           toolbar2: 'cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor',
@@ -148,9 +153,12 @@
           if (_this.hdr == null) {
             _this.hdr = {};
           }
-          _this.hdr.title = _this.title.html();
+          _this.hdr.title = _this.title.text();
           _this.hdr.tags = _this.selected.join(' ');
           _this.hdr.comments = _this.status;
+          if (_this.hdr.layout == null) {
+            _this.hdr.layout = 'post';
+          }
           $data = ["---\n"];
           _ref1 = _this.hdr;
           for ($key in _ref1) {
@@ -158,7 +166,7 @@
             $data.push("" + $key + ": " + $val + "\n");
           }
           $data.push("---\n");
-          $data.push(_this.content.html());
+          $data.push(beautify(_this.content.html()));
           if (_this.filename === '') {
             $date = (_ref2 = _this.date.datepicker('getDate')) != null ? _ref2 : new Date;
             $mm = String($date.getMonth() + 1);
@@ -170,7 +178,7 @@
             if ($mm.length === 1) {
               $mm = '0' + $mm;
             }
-            $slug = _this.title.html().toLowerCase().replace(/\s+/g, '-');
+            $slug = _this.title.text().toLowerCase().replace(/\s+/g, '-');
             _this.filename = "" + $yy + "-" + $mm + "-" + $dd + "-" + $slug + ".html";
           }
           return saveAs(new Blob($data), _this.filename);

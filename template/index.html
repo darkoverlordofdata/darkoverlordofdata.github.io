@@ -1,16 +1,18 @@
 ---
 layout: default
 active: home
+comments: open
 ---
-
 {% for post in site.posts %}
-{% if loop.first %}
-    <h1>{{ post.title }}</h1>
+{% if forloop.first %}
+<div itemscope itemtype="http://schema.org/Article" class="span12">
+    <h1 itemprop="name">{{ post.title }}</h1>
     <p class="muted">{{ post.date | date_to_long_string }}</p>
-
-{{ post.content }}
+    {{ post.content }}
+</div>
 {% endif %}
 {% endfor %}
+{% include "comments.html" %}
 
 <div class="row-fluid">
     <div class="span6">

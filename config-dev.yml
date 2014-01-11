@@ -12,6 +12,15 @@ url: http://darkoverlordofdata.com
 serve:
   - ./gh-pages
 
+marked:
+  gfm: true
+  tables: true
+  breaks: false
+  pedantic: false
+  sanitize: true
+  smartLists: true
+  smartypants: false
+
 
 plugins:
   - huginn-asset-bundler
@@ -22,8 +31,8 @@ tag_page_dir: tag
 
 asset_bundler:
   compress:
-    js: false
-    css: false
+    js: true
+    css: true
   base_path: /assets/
   shim: ''
   server_url: //cdn.darkoverlordofdata.com/

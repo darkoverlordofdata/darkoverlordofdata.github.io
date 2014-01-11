@@ -9,13 +9,15 @@ destination: ../master
 port: 53610
 url: http://darkoverlordofdata.com
 
-#paginate: 5
-#paginate_path: "list/page:num"
-#
-#markdown: rdiscount
-#permalink: pretty
-#pygments: true
-#
+marked:
+  gfm: true
+  tables: true
+  breaks: false
+  pedantic: false
+  sanitize: true
+  smartLists: true
+  smartypants: false
+
 plugins:
   - huginn-asset-bundler
   - huginn-tag-cloud

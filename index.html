@@ -9,8 +9,7 @@
 
     
     <link rel='stylesheet' href='//cdn.darkoverlordofdata.com/css/bootstrap.min.css' type='text/css'/>
-    <link rel='stylesheet' type='text/css' href='/assets/669e2c6aab5960381037a5c8d9bdc2d0.css' />
-
+    
     <link rel='stylesheet' href='//cdn.darkoverlordofdata.com/css/bootstrap-responsive.min.css' type='text/css'/>
     
 
@@ -54,33 +53,41 @@
         
 
 <div itemscope itemtype="http://schema.org/Article" class="span12">
-    <h1 itemprop="name">Adding Getters and Setters to a Ball of Yarn</h1>
-    <p class="muted">30 Decenber 2013</p>
-    That doesn't sound very useful. But you know what does? Adding getters and setters to a coffee-script class - after all, typescript has them, and I want to have similar functionality in my coffee-script.<br />
-<br />
-Getters and setters are implemented using the Object.defineProperty method. We could implement each property with a call to this method, but I don't want to type a bunch of cruft to define each class property. So lets do it meta - after all, coffee-script IS javascript!<br />
-<br />
-<br />
-<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=getter.coffee"></script>
-
-Notice that I've augmented the Function object (:: is coffescript notation for prototype). &nbsp;This will add a get method to all functions, and in coffeescript a class is a function. We can define set the same way:<br />
-<br />
-<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=setter.coffee"></script>
-
-But what does that get us? Lets look at an implementation:<br />
-<br />
-<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=heartofgold.coffee"></script>
-
-Inside of a class definition, but outside of a method scope, @ (this) refers to the class. So we are calling the get method of the class that we defined earlier, to define a getter on the class.<br />
-<br />
-And, if we explicitly invoke the super object, we can inherit the new attributes:
-<br />
-<script src="https://gist.github.com/darkoverlordofdata/4677206.js?file=zaphod.coffee"></script>
-
-Now aren't we glad we didn't turn into a big ball of yarn!
-
+    <h1 itemprop="name">Dark Overlord of Data</h1>
+    <p class="muted">6 March 2014</p>
+    
+<p>I&#39;m reorging this site. It started out as a way to quickly develop huginn, but in the long term,
+I think blogger is a great product, and I will continue on with my blogspot at
+<a href="http://blog.darkoverlordofdata.com">if it&#39;s not dark, it&#39;s not data</a></p>
+<p>In the meantime, allow me to introduce you to some of my projects:</p>
+<p><a href="http://darkoverlordofdata.com/katra/">Katra</a></p>
+<pre><code>BASIC language interpreter in CoffeeScript
+Classic games from the golden age of programming such as Hunt The Wumpus, StarTrek, etc.</code></pre>
+<p><a href="http://exspresso.darkoverlordofdata.com/">Exspresso</a></p>
+<pre><code>An experimental php style MVC Web Framework running on Node.JS</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/d16acdn">D16A CDN</a></p>
+<pre><code>The CDN used by all darkoverlordofdata projects. Based on [versions](https://github.com/3rd-Eden/versions) this &#39;version&#39; runs on OpenShift.</code></pre>
+<p><a href="http://darkoverlordofdata.com/huginn/">Huginn</a></p>
+<pre><code>A static page generator similar to Jekyll. Includes my port of the Shopify Liquid templating engine from Ruby to Coffeescript.</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/huginn-liquid">huginn-liquid</a></p>
+<pre><code>A port of Shopify&#39;s Liquid Templating to CoffeeScript. Implemented as a plugin for Huginn, the dist folder has a browserified version.</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/huginn-asset-bundler">huginn-asset-bundler</a></p>
+<pre><code>A huginn plugin to compress and bundle up assets.</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/huginn-tag-cloud">huginn-tag-cloud</a></p>
+<pre><code>A huginn plugin to display a tag cloud for your blog.</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/webkat">WebKat</a></p>
+<pre><code>A simple webkit shell for GTK written in Vala.</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/not-php">Not-PHP</a></p>
+<pre><code>Some PHP api routines re-written for Node.JS
+Includes php2coffee, a transliterator for porting PHP to CoffeeScript (requires PHP).</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/resume">Resume</a></p>
+<pre><code>My Resume, in markdown. Presented using huginn @ [http://brucedavidson.herokuapp.com/](http://brucedavidson.herokuapp.com/)</code></pre>
+<p><a href="https://github.com/darkoverlordofdata/phaser-coffeescript-demo">Phaser CoffeeScript Demo</a></p>
+<pre><code>The typescript demo at http://www.photonstorm.com/phaser/how-to-use-phaser-with-typescript, done as a coffeescript application.</code></pre>
 
 </div>
+
+
 
 
 
@@ -136,6 +143,9 @@ Now aren't we glad we didn't turn into a big ball of yarn!
         <h3>Recent Posts</h3>
 <ul>
     
+    <li><a itemscope itemtype="http://schema.org/Article" href="/2014/03/06/new-format.html">
+        <span itemprop="name">Dark Overlord of Data</span></a></li>
+    
     <li><a itemscope itemtype="http://schema.org/Article" href="/2013/12/30/adding-getters-and-setters-to-a-ball-of-yarn.html">
         <span itemprop="name">Adding Getters and Setters to a Ball of Yarn</span></a></li>
     
@@ -154,9 +164,6 @@ Now aren't we glad we didn't turn into a big ball of yarn!
     <li><a itemscope itemtype="http://schema.org/Article" href="/2013/11/10/oxmail-soup.html">
         <span itemprop="name">OXMail Soup</span></a></li>
     
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/11/08/magic-coffee.html">
-        <span itemprop="name">Magic Coffee</span></a></li>
-    
 </ul>
 
 
@@ -164,7 +171,7 @@ Now aren't we glad we didn't turn into a big ball of yarn!
     <div class="span6">
         <p>
 <div id="tag-cloud">
-    <div><a href="/tag/coffeescript" class="set-5">coffeescript</a> <a href="/tag/meta-programming" class="set-2">meta-programming</a> <a href="/tag/HTML5" class="set-1">HTML5</a> <a href="/tag/Phaser" class="set-1">Phaser</a> <a href="/tag/linux" class="set-1">linux</a> <a href="/tag/mint" class="set-1">mint</a> <a href="/tag/upgrade" class="set-1">upgrade</a> <a href="/tag/huginn" class="set-2">huginn</a> <a href="/tag/android" class="set-1">android</a> <a href="/tag/open-xchange" class="set-1">open-xchange</a> <a href="/tag/Basic" class="set-1">Basic</a> <a href="/tag/StarTrek" class="set-1">StarTrek</a> <a href="/tag/misc" class="set-2">misc</a> <a href="/tag/github" class="set-1">github</a> <a href="/tag/Drupal" class="set-1">Drupal</a> <a href="/tag/XAMPP" class="set-2">XAMPP</a> <a href="/tag/Xubuntu" class="set-2">Xubuntu</a> <a href="/tag/LAMP" class="set-1">LAMP</a> <a href="/tag/Joomla" class="set-1">Joomla</a> </div>
+    <div><a href="/tag/reorg" class="set-1">reorg</a> <a href="/tag/coffeescript" class="set-5">coffeescript</a> <a href="/tag/meta-programming" class="set-2">meta-programming</a> <a href="/tag/HTML5" class="set-1">HTML5</a> <a href="/tag/Phaser" class="set-1">Phaser</a> <a href="/tag/linux" class="set-1">linux</a> <a href="/tag/mint" class="set-1">mint</a> <a href="/tag/upgrade" class="set-1">upgrade</a> <a href="/tag/huginn" class="set-2">huginn</a> <a href="/tag/android" class="set-1">android</a> <a href="/tag/open-xchange" class="set-1">open-xchange</a> <a href="/tag/Basic" class="set-1">Basic</a> <a href="/tag/StarTrek" class="set-1">StarTrek</a> <a href="/tag/misc" class="set-2">misc</a> <a href="/tag/github" class="set-1">github</a> <a href="/tag/Drupal" class="set-1">Drupal</a> <a href="/tag/XAMPP" class="set-2">XAMPP</a> <a href="/tag/Xubuntu" class="set-2">Xubuntu</a> <a href="/tag/LAMP" class="set-1">LAMP</a> <a href="/tag/Joomla" class="set-1">Joomla</a> </div>
 </div>
 </p>
     </div>

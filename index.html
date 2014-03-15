@@ -11,6 +11,7 @@
     <link rel='stylesheet' href='//cdn.darkoverlordofdata.com/css/bootstrap.min.css' type='text/css'/>
     <link rel='stylesheet' type='text/css' href='/assets/fonts.css' />
 <link rel='stylesheet' type='text/css' href='/assets/site.css' />
+<link rel='stylesheet' type='text/css' href='/assets/jumbotron.css' />
 
     <link rel='stylesheet' href='//cdn.darkoverlordofdata.com/css/bootstrap-responsive.min.css' type='text/css'/>
     
@@ -52,133 +53,47 @@
 
 <div class="row-fluid">
     <div class="span12">
-        
+        <!-- Jumbotron -->
 
-<div itemscope itemtype="http://schema.org/Article" class="span12">
-    <h1 itemprop="name">Dark Overlord of Data</h1>
-    <p class="muted">6 March 2014</p>
-    
-<p>I&#39;m reorging this site. It started out as a way to quickly develop huginn, but in the long term,
-I think blogger is a great product, and I will continue on with my blogspot at
-<a href="http://blog.darkoverlordofdata.com">if it&#39;s not dark, it&#39;s not data</a></p>
-<p>In the meantime, allow me to introduce you to some of my projects:</p>
-<p><a href="http://darkoverlordofdata.com/katra/">Katra</a></p>
-<pre><code>BASIC language interpreter in CoffeeScript
-Classic games from the golden age of programming such as Hunt The Wumpus, StarTrek, etc.</code></pre>
-<p><a href="http://exspresso.herokuapp.com/">Exspresso</a></p>
-<pre><code>An experimental php style MVC Web Framework running on Node.JS</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/d16acdn">D16A CDN</a></p>
-<pre><code>The CDN used by all darkoverlordofdata projects. Based on [versions](https://github.com/3rd-Eden/versions) this &#39;version&#39; runs on OpenShift.</code></pre>
-<p><a href="http://darkoverlordofdata.com/huginn/">Huginn</a></p>
-<pre><code>A static page generator similar to Jekyll. Includes my port of the Shopify Liquid templating engine from Ruby to Coffeescript.</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/huginn-liquid">huginn-liquid</a></p>
-<pre><code>A port of Shopify&#39;s Liquid Templating to CoffeeScript. Implemented as a plugin for Huginn, the dist folder has a browserified version.</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/huginn-asset-bundler">huginn-asset-bundler</a></p>
-<pre><code>A huginn plugin to compress and bundle up assets.</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/huginn-tag-cloud">huginn-tag-cloud</a></p>
-<pre><code>A huginn plugin to display a tag cloud for your blog.</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/webkat">WebKat</a></p>
-<pre><code>A simple webkit shell for GTK written in Vala.</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/not-php">Not-PHP</a></p>
-<pre><code>Some PHP api routines re-written for Node.JS
-Includes php2coffee, a transliterator for porting PHP to CoffeeScript (requires PHP).</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/resume">Resume</a></p>
-<pre><code>My Resume, in markdown. Presented using huginn @ [http://brucedavidson.herokuapp.com/](http://brucedavidson.herokuapp.com/)</code></pre>
-<p><a href="https://github.com/darkoverlordofdata/phaser-coffeescript-demo">Phaser CoffeeScript Demo</a></p>
-<pre><code>The typescript demo at http://www.photonstorm.com/phaser/how-to-use-phaser-with-typescript, done as a coffeescript application.</code></pre>
+      <div class="jumbotron">
+        <h1>Katra</h1>
+        <p class="lead">
+            BASIC language interpreter in CoffeeScript.
+            Play classic games from the golden age of programming - Hunt The Wumpus, StarTrek, etc.
+        </p>
+        <a class="btn btn-large btn-success" href="http://darkoverlordofdata.com/katra/">Play Katra</a>
+      </div>
 
-</div>
+      <hr>
 
+      <!-- Example row of columns -->
+      <div class="row-fluid">
+        <div class="span4">
+          <h2>Huginn</h2>
+          <p>
+              A static page generator similar to Jekyll. Includes my port of the Shopify Liquid templating engine from Ruby to Coffeescript.
+          </p>
+          <p><a class="btn" href="http://darkoverlordofdata.com/huginn/">View details &raquo;</a></p>
+        </div>
+          <div class="span4">
+              <h2>Exspresso</h2>
+              <p>
+                  An experimental php style MVC Web Framework running on Node.JS. Most of the code
+                  was ported from PHP to CoffeeScript using <a href="https://github.com/darkoverlordofdata/not-php">Not-PHP</a>.
+              </p>
+              <p><a class="btn" href="http://exspresso.herokuapp.com/">View details &raquo;</a></p>
+          </div>
+        <div class="span4">
+          <h2>More</h2>
+          <p>
+              More projects
+          </p>
+          <p><a class="btn" href="/old_blog.html">View details &raquo;</a></p>
+        </div>
+      </div>
 
+      <hr>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = "darkoverlordofdata"; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
-<div class="row-fluid">
-    <div class="span6">
-        <h3>Recent Posts</h3>
-<ul>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2014/03/06/new-format.html">
-        <span itemprop="name">Dark Overlord of Data</span></a></li>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/12/30/adding-getters-and-setters-to-a-ball-of-yarn.html">
-        <span itemprop="name">Adding Getters and Setters to a Ball of Yarn</span></a></li>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/12/27/set-your-coffee-scripts-to-stun.html">
-        <span itemprop="name">Set Your Coffee-Scripts to Stun</span></a></li>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/12/26/linux-mint-upgrade.html">
-        <span itemprop="name">Upgrading Linux Mint Cinnamon from Olivia to Petra</span></a></li>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/12/24/huginn-sort.html">
-        <span itemprop="name">Ya Sure, You Betcha - It's a Sortin' Huginn Pluginn</span></a></li>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/12/17/on-hekyll-on-jekyll.html">
-        <span itemprop="name">On, Hekyll! On, Jekyll! On Huginn and Muninn!</span></a></li>
-    
-    <li><a itemscope itemtype="http://schema.org/Article" href="/2013/11/10/oxmail-soup.html">
-        <span itemprop="name">OXMail Soup</span></a></li>
-    
-</ul>
-
-
-    </div>
-    <div class="span6">
-        <p>
-<div id="tag-cloud">
-    <div><a href="/tag/reorg" class="set-1">reorg</a> <a href="/tag/coffeescript" class="set-5">coffeescript</a> <a href="/tag/meta-programming" class="set-2">meta-programming</a> <a href="/tag/HTML5" class="set-1">HTML5</a> <a href="/tag/Phaser" class="set-1">Phaser</a> <a href="/tag/linux" class="set-1">linux</a> <a href="/tag/mint" class="set-1">mint</a> <a href="/tag/upgrade" class="set-1">upgrade</a> <a href="/tag/huginn" class="set-2">huginn</a> <a href="/tag/android" class="set-1">android</a> <a href="/tag/open-xchange" class="set-1">open-xchange</a> <a href="/tag/Basic" class="set-1">Basic</a> <a href="/tag/StarTrek" class="set-1">StarTrek</a> <a href="/tag/misc" class="set-2">misc</a> <a href="/tag/github" class="set-1">github</a> <a href="/tag/Drupal" class="set-1">Drupal</a> <a href="/tag/XAMPP" class="set-2">XAMPP</a> <a href="/tag/Xubuntu" class="set-2">Xubuntu</a> <a href="/tag/LAMP" class="set-1">LAMP</a> <a href="/tag/Joomla" class="set-1">Joomla</a> </div>
-</div>
-</p>
-    </div>
-</div>
-<p><a href="/blog">more...</a></p>
 
 
     </div>
@@ -189,20 +104,18 @@ Includes php2coffee, a transliterator for porting PHP to CoffeeScript (requires 
 <p></p>
 <p>Created with <a itemscope itemtype="http://schema.org/SoftwareApplication" href="/huginn">
     <span itemprop="name">Huginn</span></a>
-
-<a href="/edit" title="edit posts" class="btn btn-primary btn-mini"><i class="icon icon-pencil icon-white"> </i>...</a>
-
 </p>
-
-<p>Projects by Dark Overlord of Data</p>
-<p><a itemscope itemtype="http://schema.org/SoftwareApplication" href="/katra">
-    <span itemprop="name">Katra</span></a> BASIC language interpreter in CoffeeScript</p>
-<p><a itemscope itemtype="http://schema.org/SoftwareApplication" href="http://exspresso.herokuapp.com">
-    <span itemprop="name">Exspresso</span></a> A CoffeeScript MVC Web Framework</p>
+<div class="footer">
+    <p class="pagination-centered">
+        <small class="muted">
+            <a class="no-link" href="/">
+                Copyright Dark Overlord of Data 2012 - 2014</a>
+        </small>
+    </p>
 </div>
 
+</div>
 <script type="text/javascript" src="//code.jquery.com/jquery-2.0.2.min.js" ></script>
 <script type="text/javascript" src="//cdn.darkoverlordofdata.com/js/bootstrap.min.js" ></script>
-
 </body>
 </html>

@@ -1,0 +1,26 @@
+---
+layout: default
+active: home
+comments: open
+---
+{% for post in site.posts %}
+{% if forloop.first %}
+<div itemscope itemtype="http://schema.org/Article" class="span12">
+    <h1 itemprop="name">{{ post.title }}</h1>
+    <p class="muted">{{ post.date | date_to_long_string }}</p>
+    {{ post.content }}
+</div>
+{% endif %}
+{% endfor %}
+{% include "comments.html" %}
+
+<div class="row-fluid">
+    <div class="span6">
+        {% include "sidebar.html" %}
+    </div>
+    <div class="span6">
+        {% include "tag-cloud.html" %}
+    </div>
+</div>
+<p><a href="/blog">more...</a></p>
+

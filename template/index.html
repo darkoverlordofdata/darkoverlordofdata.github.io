@@ -3,24 +3,52 @@ layout: default
 active: home
 comments: open
 ---
-{% for post in site.posts %}
-{% if forloop.first %}
-<div itemscope itemtype="http://schema.org/Article" class="span12">
-    <h1 itemprop="name">{{ post.title }}</h1>
-    <p class="muted">{{ post.date | date_to_long_string }}</p>
-    {{ post.content }}
-</div>
-{% endif %}
-{% endfor %}
-{% include "comments.html" %}
+<!-- Jumbotron -->
 
-<div class="row-fluid">
-    <div class="span6">
-        {% include "sidebar.html" %}
-    </div>
-    <div class="span6">
-        {% include "tag-cloud.html" %}
-    </div>
-</div>
-<p><a href="/blog">more...</a></p>
+      <div class="jumbotron">
+        <h1  title="Katra - the Vulcan word for soul or spirit">Katra</h1>
+        <p class="lead">
+            BASIC language interpreter in CoffeeScript.
+            Play classic games from the golden age of programming - Hunt The Wumpus, StarTrek, etc.
+        </p>
+        <a class="btn btn-large btn-success" href="http://darkoverlordofdata.com/katra/">Play Katra</a>
+      </div>
+
+      <hr>
+
+      <!-- Example row of columns -->
+      <div class="row-fluid">
+        <div class="span4">
+          <h2>Huginn</h2>
+          <p>
+              A static page generator similar to Jekyll. Includes my port of the Shopify Liquid templating engine from Ruby to CoffeeScript.
+          </p>
+          <p><a class="btn" href="http://darkoverlordofdata.com/huginn/">View details &raquo;</a></p>
+        </div>
+          <div class="span4">
+              <h2>Exspresso</h2>
+              <p>
+                  An experimental php style MVC Web Framework running on Node.JS. Most of the code
+                  was ported from PHP to CoffeeScript using <a href="https://github.com/darkoverlordofdata/not-php">Not-PHP</a>.
+              </p>
+              <p><a class="btn" href="http://exspresso.darkoverlordofdata.com/">View details &raquo;</a></p>
+          </div>
+          <div class="span4">
+              <h2>Frodo</h2>
+              <p>
+                  Facebook demo's using CoffeeScript
+              </p>
+              <p><a class="btn" href="https://apps.facebook.com/frodo-demo/">View details &raquo;</a></p>
+          </div>
+        <div class="span4">
+          <h2>More</h2>
+          <p>
+              More projects
+          </p>
+          <p><a class="btn" href="/old_blog.html">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
 
